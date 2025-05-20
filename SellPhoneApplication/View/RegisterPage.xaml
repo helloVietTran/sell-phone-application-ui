@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SellPhoneApplication.View.RegisterPage"
+             BackgroundColor="White">
+    <ScrollView>
+        <VerticalStackLayout Padding="20"
+                    Spacing="20"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+
+            <VerticalStackLayout WidthRequest="400"
+                      Spacing="15">
+
+                <Image Source="senifone.png"
+                  WidthRequest="150"
+                  HeightRequest="40"
+                  HorizontalOptions="Center" />
+
+                <Label Text="Đăng ký" 
+                  FontSize="24" 
+                  HorizontalOptions="Start" 
+                  FontAttributes="Bold"/>
+
+                <!-- Full Name Field -->
+                <Label Text="Họ và tên" 
+                  FontSize="16" 
+                  HorizontalOptions="Start" />
+                <AbsoluteLayout HeightRequest="60">
+                    <Entry Placeholder="Nhập họ và tên"
+                        Keyboard="Text"
+                        Text="{Binding FullName}"
+                        HeightRequest="40"
+                        AbsoluteLayout.LayoutBounds="0,0,1,40"
+                        AbsoluteLayout.LayoutFlags="WidthProportional" />
+                    <Label Text="{Binding FullNameError}" 
+                        FontSize="10" 
+                        TextColor="OrangeRed"
+                        AbsoluteLayout.LayoutBounds="0,43,1,17"
+                        AbsoluteLayout.LayoutFlags="WidthProportional"
+                        IsVisible="{Binding FullNameError, Converter={StaticResource StringNotNullOrEmptyConverter}}" />
+                </AbsoluteLayout>
+
+                <!-- Email Field -->
+                <Label Text="Email" 
+                  FontSize="16" 
+                  HorizontalOptions="Start" />
+                <AbsoluteLayout HeightRequest="60">
+                    <Entry Placeholder="Nhập email"
+                        Keyboard="Email"
+                        Text="{Binding Email}"
+                         HeightRequest="40"
+                        AbsoluteLayout.LayoutBounds="0,0,1,40"
+                        AbsoluteLayout.LayoutFlags="WidthProportional" />
+                    <Label Text="{Binding EmailError}" 
+                        FontSize="10" 
+                        TextColor="OrangeRed"
+                        AbsoluteLayout.LayoutBounds="0,43,1,17"
+                        AbsoluteLayout.LayoutFlags="WidthProportional"
+                         IsVisible="{Binding EmailError, Converter={StaticResource StringNotNullOrEmptyConverter}}" />   
+                </AbsoluteLayout>
+
+                <!-- Password Field -->
+                <Label Text="Mật khẩu" 
+                  FontSize="16" 
+                  HorizontalOptions="Start" />
+                <AbsoluteLayout HeightRequest="60">
+                    <Entry Placeholder="Nhập mật khẩu"
+                        Keyboard="Text"
+                        Text="{Binding Password}"
+                        IsPassword="True"
+                        HeightRequest="40"
+                        AbsoluteLayout.LayoutBounds="0,0,1,40"
+                        AbsoluteLayout.LayoutFlags="WidthProportional" />
+                    <Label Text="{Binding PasswordError}" 
+                        FontSize="10" 
+                        TextColor="OrangeRed"
+                        AbsoluteLayout.LayoutBounds="0,43,1,17"
+                        AbsoluteLayout.LayoutFlags="WidthProportional"
+                    IsVisible="{Binding PasswordError, Converter={StaticResource StringNotNullOrEmptyConverter}}" />
+                </AbsoluteLayout>
+
+                <!-- Confirm Password Field -->
+                <Label Text="Xác nhận mật khẩu" 
+                      FontSize="16" 
+                      HorizontalOptions="Start" />  
+                <AbsoluteLayout HeightRequest="60">
+                    <Entry Placeholder="Xác nhận mật khẩu"
+                        Keyboard="Text"
+                        Text="{Binding ConfirmPassword}"
+                        IsPassword="True"
+                         HeightRequest="40"
+                        AbsoluteLayout.LayoutBounds="0,0,1,40"
+                        AbsoluteLayout.LayoutFlags="WidthProportional" />
+
+                    <Label Text="{Binding ConfirmPasswordError}" 
+                        FontSize="10" 
+                        TextColor="OrangeRed"
+                        AbsoluteLayout.LayoutBounds="0,43,1,17"
+                        AbsoluteLayout.LayoutFlags="WidthProportional"
+                        IsVisible="{Binding ConfirmPasswordError, Converter={StaticResource StringNotNullOrEmptyConverter}}" />
+                </AbsoluteLayout>
+
+                <!-- Register Button -->
+                <Button Text="Đăng ký"
+                       Command="{Binding RegisterCommand}"
+                       TextColor="White"
+                       CornerRadius="8"
+                       HeightRequest="44" />
+
+                <HorizontalStackLayout HorizontalOptions="End" Spacing="5">
+                    <Label Text="Đã có tài khoản?" FontSize="14" />
+                    <Label Text="Đăng nhập ngay"
+              
+                     FontSize="12"
+                     TextColor="{DynamicResource CustomBlue}"
+                     TextDecorations="None">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLoginTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

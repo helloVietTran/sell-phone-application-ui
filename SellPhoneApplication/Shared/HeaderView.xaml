@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SellPhoneApplication.Shared.HeaderView"
+             >
+    <Grid Grid.Row="0" ColumnSpacing="10" Padding="20,20,20,30">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Logo -->
+        <Image Grid.Column="0" Source="senifone.png" HeightRequest="18" />
+
+        <!-- Navigation Links -->
+        <StackLayout Grid.Column="1" Orientation="Horizontal" HorizontalOptions="Center" Spacing="25">
+            <Label Text="Trang chủ" TextColor="{DynamicResource NavigationTextColor}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="Danh mục sản phẩm" TextColor="{DynamicResource NavigationTextColor}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnSenifoneTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="Phụ kiện" TextColor="{DynamicResource NavigationTextColor}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnAccessoriesTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+            <Label Text="Chăm sóc khách hàng" TextColor="{DynamicResource NavigationTextColor}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCustomerServiceTapped" />
+                </Label.GestureRecognizers>
+            </Label>
+
+        </StackLayout>
+
+        <!-- Icons -->
+        <StackLayout Grid.Column="2" Orientation="Horizontal" Spacing="15" HorizontalOptions="End">
+            <Image Source="icon_user.png" HeightRequest="18">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnUserTapped" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Image Source="icon_search.png" HeightRequest="18">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnSearchTapped" />
+                </Image.GestureRecognizers>
+            </Image>
+            <Image Source="icon_cart.png" HeightRequest="18">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnCartTapped" />
+                </Image.GestureRecognizers>
+            </Image>
+        </StackLayout>
+    </Grid>
+</ContentView>
