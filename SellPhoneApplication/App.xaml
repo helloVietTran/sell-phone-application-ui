@@ -9,10 +9,14 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
+               
             </ResourceDictionary.MergedDictionaries>
-            
-            <converters:StringNotNullOrEmptyConverter x:Key="StringNotNullOrEmptyConverter"/>
 
+            <converters:StringNotNullOrEmptyConverter x:Key="StringNotNullOrEmptyConverter"/>
+            <converters:MemoryContainsConverter x:Key="MemoryContainsConverter"/>
+            <converters:StarVisibleConverter x:Key="StarVisibleConverter"/>
+            <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

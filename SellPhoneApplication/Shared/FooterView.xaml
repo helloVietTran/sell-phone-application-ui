@@ -1,33 +1,35 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="SellPhoneApplication.Shared.FooterView">
-    
-    <VerticalStackLayout Spacing="12" BackgroundColor="#3C4043" Padding="0,10">
+<ContentView
+    x:Class="SellPhoneApplication.Shared.FooterView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
-        <!-- Tên thương hiệu -->
-        <Label 
-           
-          Text="Senifone"
-          FontSize="20"
-          FontAttributes="Bold"
-          TextColor="White"
-          HorizontalOptions="Center" />
+    <VerticalStackLayout
+        Padding="0,10"
+        BackgroundColor="#3C4043"
+        Spacing="12">
 
-        <!-- Liên hệ -->
-        <Label 
-          Text="Email: 2221050164@student.humg.vn | Hotline: 1900 1234"
-          FontSize="13"
-         TextColor="#999999"
-          HorizontalTextAlignment="Center" />
+        <!--  Tên thương hiệu  -->
+        <Label
+            FontAttributes="Bold"
+            FontSize="20"
+            HorizontalOptions="Center"
+            Text="Senifone"
+            TextColor="White" />
 
-        <!-- Bản quyền -->
-        <Label 
-          Text="© 2025 Senifone. Đã đăng ký bản quyền."
-          FontSize="12"
-          TextColor="#999999"
-          HorizontalTextAlignment="Center" />
+        <!--  Liên hệ  -->
+        <Label
+            FontSize="13"
+            HorizontalTextAlignment="Center"
+            Text="Email: 2221050164@student.humg.vn | Hotline: 1900 1234"
+            TextColor="#999999" />
+
+        <!--  Bản quyền  -->
+        <Label
+            FontSize="12"
+            HorizontalTextAlignment="Center"
+            Text="© 2025 Senifone. Đã đăng ký bản quyền."
+            TextColor="#999999" />
     </VerticalStackLayout>
 </ContentView>
-    
-    
+

@@ -1,21 +1,19 @@
-﻿
-using System.Globalization;
-
+﻿using System.Globalization;
 
 namespace SellPhoneApplication.Converters
 {
-    public class StringNotNullOrEmptyConverter : IValueConverter
+    public class MemoryContainsConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is string str)
-                return !string.IsNullOrEmpty(str);
+            // cast chung cho IEnumerable<string>
+            if (value is IEnumerable<string> list && parameter is string memory)
+                return list.Contains(memory);
+
             return false;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
+            => Binding.DoNothing;
     }
 }

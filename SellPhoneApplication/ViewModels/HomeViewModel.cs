@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-public class HomeViewModel: ObservableObject
+public class HomeViewModel : ObservableObject
 {
 
 }

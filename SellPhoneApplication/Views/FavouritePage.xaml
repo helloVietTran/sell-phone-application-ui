@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SellPhoneApplication.Views.FavouritePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:SellPhoneApplication.Models"
+    xmlns:shared="clr-namespace:SellPhoneApplication.Shared"
+    x:Name="FavouritePageView"
+    Shell.FlyoutBehavior="Disabled">
+
+    <Grid
+        Padding="0"
+        ColumnSpacing="10"
+        RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!--  Header  -->
+            <RowDefinition Height="*" />
+            <!--  Content  -->
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <!--  Full width  -->
+        </Grid.ColumnDefinitions>
+
+        <!--  Header  -->
+        <shared:HeaderView Grid.Row="0" Grid.ColumnSpan="1" />
+
+        <!--  Content  -->
+        <ScrollView Grid.Row="1" Grid.Column="0">
+            <VerticalStackLayout Padding="20" Spacing="10">
+
+                <!--  Section title  -->
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="22"
+                        Text="Danh sách yêu thích"
+                        TextColor="#212121" />
+                </Grid>
+
+                <!--  List of favorite phones  -->
+                <CollectionView ItemsSource="{Binding FavouritePhones}" SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            HorizontalItemSpacing="10"
+                            Orientation="Vertical"
+                            Span="3"
+                            VerticalItemSpacing="20" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Phone">
+                            <Frame
+                                Margin="6"
+                                Padding="12"
+                                BackgroundColor="White"
+                                BorderColor="#F1F1F1"
+                                CornerRadius="6"
+                                HasShadow="False"
+                                HeightRequest="400">
+
+                                <VerticalStackLayout Spacing="6">
+
+                                    <!--  Ảnh điện thoại  -->
+                                    <Image
+                                        Aspect="AspectFill"
+                                        HeightRequest="244"
+                                        Source="{Binding ImageUrl}">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference FavouritePage}, Path=BindingContext.PhoneSelectedCommand}" CommandParameter="{Binding .}" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+
+                                    <!--  Tên điện thoại  -->
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        LineBreakMode="TailTruncation"
+                                        Text="{Binding Name}"
+                                        TextColor="#444444">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference FavouritePage}, Path=BindingContext.PhoneSelectedCommand}" CommandParameter="{Binding .}" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+
+                                    <!--  Giá  -->
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="14"
+                                        Text="{Binding Price, StringFormat='Giá: {0:N0} đ'}"
+                                        TextColor="#D70020" />
+
+                                    <!--  Bỏ thích  -->
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Image
+                                            HeightRequest="16"
+                                            Source="broken_heart.png"
+                                            WidthRequest="16" />
+                                        <Label
+                                            FontSize="14"
+                                            Text="Bỏ thích"
+                                            TextColor="Red">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference FavouritePage}, Path=BindingContext.UnfavoriteCommand}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </HorizontalStackLayout>
+
+                                    <!--  Thêm vào giỏ hàng  -->
+                                    <Button
+                                        BackgroundColor="#000"
+                                        Command="{Binding Source={x:Reference FavouritePage}, Path=BindingContext.AddToCartCommand}"
+                                        CommandParameter="{Binding .}"
+                                        Text="Thêm vào giỏ hàng"
+                                        TextColor="White" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

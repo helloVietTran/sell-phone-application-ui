@@ -1,5 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SellPhoneApplication.constant;
+using System.Text;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 public partial class RegisterViewModel : ObservableObject
@@ -17,84 +22,96 @@ public partial class RegisterViewModel : ObservableObject
     [ObservableProperty]
     private string confirmPassword;
 
-    // Các thông báo lỗi tương ứng
     [ObservableProperty]
-    private string fullNameError;
+    private string generalError;
 
-    [ObservableProperty]
-    private string emailError;
-
-    [ObservableProperty]
-    private string passwordError;
-
-    [ObservableProperty]
-    private string confirmPasswordError;
-
-    // Command xử lý đăng ký
     [RelayCommand]
     async Task RegisterAsync()
     {
-        bool isValid = true;
 
-        // Reset các thông báo lỗi
-        FullNameError = "";
-        EmailError = "";
-        PasswordError = "";
-        ConfirmPasswordError = "";
+        GeneralError = "";
 
-        // Validate Full Name: không được rỗng.
+
         if (string.IsNullOrWhiteSpace(FullName))
         {
-            FullNameError = "Vui lòng nhập họ và tên!";
-            isValid = false;
+            GeneralError = "Vui lòng nhập họ và tên!";
+            return;
         }
 
-        // Validate Email: phải có và đúng định dạng email.
+
         if (string.IsNullOrWhiteSpace(Email))
         {
-            EmailError = "Vui lòng nhập email!";
-            isValid = false;
+            GeneralError = "Vui lòng nhập email!";
+            return; // Dừng lại và chỉ hiển thị lỗi này
         }
         else if (!Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
         {
-            EmailError = "Email không hợp lệ!";
-            isValid = false;
+            GeneralError = "Email không hợp lệ!";
+            return;
         }
 
-        // Validate Password: tối thiểu 6 ký tự và chỉ chứa chữ và số.
         if (string.IsNullOrWhiteSpace(Password))
         {
-            PasswordError = "Vui lòng nhập mật khẩu!";
-            isValid = false;
+            GeneralError = "Vui lòng nhập mật khẩu!";
+            return;
         }
         else if (Password.Length < 6)
         {
-            PasswordError = "Mật khẩu tối thiểu 6 ký tự!";
-            isValid = false;
+            GeneralError = "Mật khẩu tối thiểu 6 ký tự!";
+            return;
         }
         else if (!Regex.IsMatch(Password, @"^[A-Za-z0-9]+$"))
         {
-            PasswordError = "Mật khẩu không được chứa ký tự đặc biệt!";
-            isValid = false;
+            GeneralError = "Mật khẩu không được chứa ký tự đặc biệt!";
+            return;
         }
 
         // Validate Confirm Password: phải có và trùng với Password.
         if (string.IsNullOrWhiteSpace(ConfirmPassword))
         {
-            ConfirmPasswordError = "Vui lòng xác nhận mật khẩu!";
-            isValid = false;
+            GeneralError = "Vui lòng xác nhận mật khẩu!";
+            return;
         }
         else if (ConfirmPassword != Password)
         {
-            ConfirmPasswordError = "Mật khẩu xác nhận không khớp!";
-            isValid = false;
+            GeneralError = "Mật khẩu xác nhận không khớp!";
+            return;
         }
 
-        if (!isValid)
-            return;
 
-        // Nếu mọi thứ hợp lệ, xử lý đăng ký (ví dụ gọi API, chuyển trang,...)
-        await Task.Delay(1000);
-        await Shell.Current.GoToAsync("//HomePage");
+
+        try
+        {
+            var httpClient = new HttpClient();
+            var registerData = new
+            {
+                email = Email,
+                password = Password,
+                fullName = FullName,
+            };
+
+            var content = new StringContent(
+                JsonSerializer.Serialize(registerData),
+                Encoding.UTF8,
+                "application/json");
+
+            var response = await httpClient.PostAsync($"{AppConstants.BaseApiUrl}{AppConstants.RegisterEndpoint}", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                await Shell.Current.GoToAsync("//LoginPage");
+
+            }
+            else
+            {
+                var errorBody = await response.Content.ReadAsStringAsync();
+                GeneralError = "Đăng nhập thất bại: " + errorBody;
+            }
+        }
+        catch (Exception ex)
+        {
+            GeneralError = "Đã xảy ra lỗi: " + ex.Message;
+        }
+
     }
 }
