@@ -1,10 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SellPhoneApplication.constant;
-using System.Text;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text.Json;
+using SellPhoneApplication.Services;
 using System.Text.RegularExpressions;
 
 public partial class RegisterViewModel : ObservableObject
@@ -24,6 +20,15 @@ public partial class RegisterViewModel : ObservableObject
 
     [ObservableProperty]
     private string generalError;
+
+
+    private readonly IAuthService _authService;
+
+    public RegisterViewModel(IAuthService authService)
+    {
+        _authService = authService;
+    }
+
 
     [RelayCommand]
     async Task RegisterAsync()
@@ -78,34 +83,12 @@ public partial class RegisterViewModel : ObservableObject
             return;
         }
 
-
-
         try
         {
-            var httpClient = new HttpClient();
-            var registerData = new
+            var success = await _authService.RegisterAsync(Email, Password, FullName);
+            if (!success)
             {
-                email = Email,
-                password = Password,
-                fullName = FullName,
-            };
-
-            var content = new StringContent(
-                JsonSerializer.Serialize(registerData),
-                Encoding.UTF8,
-                "application/json");
-
-            var response = await httpClient.PostAsync($"{AppConstants.BaseApiUrl}{AppConstants.RegisterEndpoint}", content);
-
-            if (response.IsSuccessStatusCode)
-            {
-                await Shell.Current.GoToAsync("//LoginPage");
-
-            }
-            else
-            {
-                var errorBody = await response.Content.ReadAsStringAsync();
-                GeneralError = "Đăng nhập thất bại: " + errorBody;
+                GeneralError = "Đăng ký thất bại. Vui lòng kiểm tra lại thông tin!";
             }
         }
         catch (Exception ex)

@@ -1,12 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SellPhoneApplication.constant;
-using SellPhoneApplication.DTOs;
-using System.Text;
+using SellPhoneApplication.Services;
 using System.Text.RegularExpressions;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text.Json;
 
 
 public partial class LoginViewModel : ObservableObject
@@ -21,7 +16,12 @@ public partial class LoginViewModel : ObservableObject
     [ObservableProperty]
     private string generalError;
 
+    private readonly IAuthService _authService;
 
+    public LoginViewModel(IAuthService authService)
+    {
+        _authService = authService;
+    }
 
     [RelayCommand]
     async Task LoginAsync()
@@ -60,46 +60,10 @@ public partial class LoginViewModel : ObservableObject
 
         try
         {
-            var httpClient = new HttpClient();
-            var loginData = new
+            var success = await _authService.LoginAsync(Email, Password);
+            if (!success)
             {
-                email = Email,
-                password = Password
-            };
-
-            var content = new StringContent(
-                JsonSerializer.Serialize(loginData),
-                Encoding.UTF8,
-                "application/json");
-
-            var response = await httpClient.PostAsync($"{AppConstants.BaseApiUrl}{AppConstants.LoginEndpoint}", content);
-            if (response.IsSuccessStatusCode)
-            {
-                var json = await response.Content.ReadAsStringAsync();
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
-
-                var apiResponse = JsonSerializer.Deserialize<ApiResponse<AuthenticationResponse>>(json, options);
-
-
-                if (apiResponse != null && apiResponse.Result != null && !string.IsNullOrEmpty(apiResponse.Result.AccessToken))
-                {
-                    var token = apiResponse.Result.AccessToken;
-                    await SecureStorage.SetAsync("auth_token", token);
-
-                    await Shell.Current.GoToAsync("//HomePage");
-                }
-                else
-                {
-                    GeneralError = "Không nhận được token hợp lệ từ server.";
-                }
-            }
-            else
-            {
-                var errorBody = await response.Content.ReadAsStringAsync();
-                GeneralError = "Đăng nhập thất bại: " + errorBody;
+                GeneralError = "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin!";
             }
         }
         catch (Exception ex)

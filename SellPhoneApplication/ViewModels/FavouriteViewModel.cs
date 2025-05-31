@@ -1,56 +1,57 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using SellPhoneApplication.Models;
+using SellPhoneApplication.Services;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
-
+using System.Threading.Tasks;
 
 public partial class FavouriteViewModel : ObservableObject
 {
-    public ObservableCollection<Phone> FavouritePhones { get; } = new();
+    private readonly IFavoriteService _favoriteService;
 
-    public ICommand UnfavoriteCommand { get; }
-    public ICommand PhoneSelectedCommand { get; }
-    public ICommand AddToCartCommand { get; }
-
-    public FavouriteViewModel()
+    public FavouriteViewModel(IFavoriteService favoriteService)
     {
-        // Giả sử bạn đã load list phones yêu thích ở đây
-        FavouritePhones = LoadFavouritePhones();
-
-        UnfavoriteCommand = new RelayCommand<Phone>(OnUnfavorite);
-        PhoneSelectedCommand = new RelayCommand<Phone>(OnPhoneSelected);
-        AddToCartCommand = new RelayCommand<Phone>(OnAddToCart);
+        _favoriteService = favoriteService;
+        // Load ngay khi khởi tạo
+        _ = LoadFavoritesAsync();
     }
 
-    private void OnUnfavorite(Phone phone)
+    [ObservableProperty]
+    private ObservableCollection<FavoriteProduct> favouritePhones = new();
+
+    [ObservableProperty]
+    private string errorMessage;
+
+    // Command để load lại danh sách
+    [RelayCommand]
+    public async Task LoadFavoritesAsync()
     {
-        if (FavouritePhones.Contains(phone))
+        try
         {
-            FavouritePhones.Remove(phone);
-            // TODO: Đồng bộ lại backend/local storage
+            var list = await _favoriteService.GetFavoritesAsync();
+            FavouritePhones = new ObservableCollection<FavoriteProduct>(list);
+        }
+        catch (System.Exception ex)
+        {
+            ErrorMessage = "Không thể tải danh sách yêu thích.";
         }
     }
 
-    private void OnPhoneSelected(Phone phone)
+    // Command remove (unfavorite)
+    [RelayCommand]
+    public async Task UnfavoriteAsync(FavoriteProduct item)
     {
-        // TODO: Navigation đến trang detail
-        Shell.Current.GoToAsync($"//PhoneDetailPage?phoneId={phone.Id}");
-    }
+        if (item == null) return;
 
-    private void OnAddToCart(Phone phone)
-    {
-        // TODO: Thêm vào giỏ hàng
-    }
-
-    private ObservableCollection<Phone> LoadFavouritePhones()
-    {
-        // TODO: load từ DB / API
-        return new ObservableCollection<Phone>
-            {
-                // ví dụ mẫu
-                new Phone { Id = 1, Name="iPhone 13", Price=25000000, ImageUrl="iphone13.png" },
-                new Phone { Id = 2, Name="Galaxy S21", Price=18000000, ImageUrl="galaxy_s21.png" },
-            };
+        try
+        {
+            await _favoriteService.RemoveFavoriteAsync(item.FavoriteId);
+            // Reload lại danh sách
+            await LoadFavoritesAsync();
+        }
+        catch (System.Exception ex)
+        {
+            ErrorMessage = "Xóa yêu thích thất bại.";
+        }
     }
 }

@@ -6,8 +6,6 @@ using SellPhoneApplication.Models;
 using SellPhoneApplication.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Net.Http;
-using System.Net.Http.Json;
 using System.Text.Json;
 
 
@@ -29,7 +27,7 @@ public partial class PhoneDetailViewModel : ObservableObject
     public ObservableCollection<Review> reviews;
 
     [ObservableProperty]
-    public String errorMessage;
+    public string errorMessage;
 
     public string MemoryDisplay => phone?.Memory.HasValue == true ? $"{phone.Memory.Value} GB" : "N/A";
     public string RamDisplay => phone?.Ram.HasValue == true ? $"{phone.Ram.Value} GB" : "N/A";
@@ -94,13 +92,24 @@ public partial class PhoneDetailViewModel : ObservableObject
     [RelayCommand]
     private async Task AddToCart()
     {
-        try
+        await _cartService.AddToCartAsync(Phone.Id, 1);
+    }
+
+    [RelayCommand]
+    public async Task SubmitReviewAsync(ReviewRequest request)
+    {
+        if (int.TryParse(ProductId, out var productIdInt))
         {
-            await _cartService.AddToCartAsync(Phone.Id, 1);
+            request.ProductId = productIdInt;
+
+            await _reviewService.PostReviewAsync(request);
+
+            // Gọi lại LoadReviews sau khi gửi thành công
+            await LoadReviews();
         }
-        catch (Exception ex)
+        else
         {
-            // handle error
+            Debug.WriteLine("ProductId không hợp lệ.");
         }
     }
 

@@ -2,20 +2,16 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SellPhoneApplication.constant;
-using SellPhoneApplication.DTOs;
 using SellPhoneApplication.Models;
 using SellPhoneApplication.Services;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text.Json;
-using System.Web;
 
 public partial class PhonesViewModel : ObservableObject
 {
     private readonly ICartService _cartService;
+    private readonly IProductService _productService;
+    private readonly IFavoriteService _favoriteService;
 
     [ObservableProperty]
     double maxPrice = 25000000;
@@ -35,11 +31,13 @@ public partial class PhonesViewModel : ObservableObject
     [ObservableProperty]
     string errorMessage;
 
-    public PhonesViewModel(ICartService cartService)
+    public PhonesViewModel(ICartService cartService, IProductService productService, IFavoriteService favoriteService)
     {
         _cartService = cartService;
-        SelectedMemories = new ObservableCollection<string>();
+        _productService = productService;
+        _favoriteService = favoriteService;
 
+        SelectedMemories = new ObservableCollection<string>();
         SelectedBrands = new ObservableCollection<string>();
 
     }
@@ -47,56 +45,22 @@ public partial class PhonesViewModel : ObservableObject
     [RelayCommand]
     public async Task ApplyFilterAsync()
     {
-        var query = HttpUtility.ParseQueryString(string.Empty);
-
-        if (MaxPrice > 0)
-            query["maxPrice"] = MaxPrice.ToString();
-
-        if (SelectedBrands.Any())
-            foreach (var brand in SelectedBrands)
-                query.Add("brands", brand);
-
-        if (SelectedMemories.Any())
-            foreach (var mem in SelectedMemories)
-                query.Add("memories", mem);
-
-        if (!string.IsNullOrEmpty(Color))
-            query["color"] = Color;
-
-
         try
         {
-            var httpClient = new HttpClient();
+            var result = await _productService.FilterPhonesAsync(MaxPrice, SelectedBrands, SelectedMemories, Color);
 
-            var response = await httpClient.GetAsync($"{AppConstants.BaseApiUrl}{AppConstants.FilterEndpoint}?{query.ToString()}");
-
-            if (response.IsSuccessStatusCode)
+            if (result != null)
             {
-                
-                var json = await response.Content.ReadAsStringAsync();
-                
-
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
-
-                var res = JsonSerializer.Deserialize<ApiResponse<List<Phone>>>(json, options);
-
-                Debug.WriteLine("Gọi Api thành công: " + res);
-
-                if (res?.Result != null)
-                    Phones = new ObservableCollection<Phone>(res.Result);
+                Phones = new ObservableCollection<Phone>(result);
             }
             else
             {
-                
-                ErrorMessage = "Lỗi khi tải dữ liệu sản phẩm";
+                ErrorMessage = "Không có sản phẩm phù hợp.";
             }
         }
         catch (Exception ex)
         {
-            ErrorMessage = ex.Message;
+            ErrorMessage = "Lỗi khi tải dữ liệu sản phẩm: " + ex.Message;
             Debug.WriteLine(ex.Message);
         }
     }
@@ -154,6 +118,23 @@ public partial class PhonesViewModel : ObservableObject
         {
             Debug.WriteLine("Thêm sản phẩm vào giỏ hàng thất bại!");
             Debug.WriteLine(ex.Message);
+        }
+    }
+
+    [RelayCommand]
+    public async Task ToggleFavoriteAsync(Phone phone)
+    {
+        if (phone == null)
+            return;
+
+        try
+        {
+            await _favoriteService.AddToFavoritesAsync(phone.Id);
+            Debug.WriteLine($"Đã thêm sản phẩm {phone.Id} vào danh sách yêu thích");
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine("Lỗi khi thêm yêu thích: " + ex.Message);
         }
     }
 }

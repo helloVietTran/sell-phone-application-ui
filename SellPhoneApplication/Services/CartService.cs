@@ -2,8 +2,6 @@
 using SellPhoneApplication.DTOs;
 using SellPhoneApplication.Models;
 using System.Diagnostics;
-using System.Net.Http;
-using System.Net.Http.Json; 
 using System.Text.Json;
 
 namespace SellPhoneApplication.Services
@@ -30,8 +28,8 @@ namespace SellPhoneApplication.Services
         {
             var request = new
             {
-                productId = productId,
-                quantity = quantity
+                productId,
+                quantity
             };
 
             var json = JsonSerializer.Serialize(request);
@@ -45,7 +43,6 @@ namespace SellPhoneApplication.Services
                 throw new Exception("Thêm vào giỏ hàng thất bại");
             }
         }
-
 
         public async Task<List<CartItem>> GetCartItemsAsync()
         {
@@ -67,8 +64,6 @@ namespace SellPhoneApplication.Services
             return res.Result;
         }
 
-
-
         public async Task RemoveFromCartAsync(int productId)
         {
             var response = await _httpClient.DeleteAsync($"{AppConstants.BaseApiUrl}{AppConstants.CartEndpoint}/{productId}");
@@ -82,5 +77,6 @@ namespace SellPhoneApplication.Services
             Debug.WriteLine($"Đã xóa sản phẩm có ID: {productId}");
         }
     }
+
 
 }

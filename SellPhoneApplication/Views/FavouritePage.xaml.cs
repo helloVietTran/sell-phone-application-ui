@@ -2,9 +2,9 @@ namespace SellPhoneApplication.Views;
 
 public partial class FavouritePage : ContentPage
 {
-    public FavouritePage()
+    public FavouritePage(FavouriteViewModel vm)
     {
         InitializeComponent();
-        BindingContext = new FavouriteViewModel();
+        BindingContext = vm;
     }
 }

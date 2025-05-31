@@ -1,10 +1,11 @@
-namespace SellPhoneApplication.Shared;
+﻿namespace SellPhoneApplication.Shared;
 
 public partial class ReviewPopup : CommunityToolkit.Maui.Views.Popup
 {
     public int Rating { get; private set; } = 0;
     public string Comment => ReviewEditor.Text;
 
+    public Action<int, string>? OnSubmitReview;
     public ReviewPopup()
     {
         InitializeComponent();
@@ -69,10 +70,10 @@ public partial class ReviewPopup : CommunityToolkit.Maui.Views.Popup
     private void OnSubmitClicked(object sender, EventArgs e)
     {
         if (string.IsNullOrWhiteSpace(Comment) || Rating == 0)
-        {
-
             return;
-        }
+
+        // 🔥 Invoke the callback 
+        OnSubmitReview?.Invoke(Rating, Comment);
 
         Close(this);
     }

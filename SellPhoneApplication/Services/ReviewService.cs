@@ -1,17 +1,15 @@
 ﻿
 using SellPhoneApplication.constant;
 using SellPhoneApplication.DTOs;
-using System.Diagnostics;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text.Json;
 using SellPhoneApplication.Models;
+using System.Diagnostics;
+using System.Text.Json;
 
 namespace SellPhoneApplication.Services
 {
     public interface IReviewService
     {
-        Task PostReviewAsync(string productId, string reviewContent, int rating);
+        Task PostReviewAsync(ReviewRequest request);
         Task<List<Review>> GetReviewAsync(string productId);
     }
     public class ReviewService : IReviewService
@@ -23,32 +21,32 @@ namespace SellPhoneApplication.Services
             var handler = new AuthHttpClientHandler(new HttpClientHandler());
             _httpClient = new HttpClient(handler);
         }
-        public async Task PostReviewAsync(string productId, string reviewContent, int rating)
+
+        public async Task PostReviewAsync(ReviewRequest request)
         {
-            var request = new
+            var options = new JsonSerializerOptions
             {
-                productId = productId,
-                content = reviewContent,
-                rating = rating
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
 
-            var json = JsonSerializer.Serialize(request);
+            var json = JsonSerializer.Serialize(request, options);
+
             var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync($"{AppConstants.BaseApiUrl}/reviews", content);
+            var response = await _httpClient.PostAsync($"{AppConstants.BaseApiUrl}{AppConstants.ReviewEndpoint}", content);
 
             if (!response.IsSuccessStatusCode)
             {
-                Debug.WriteLine("Gửi đánh giá thất bại");
+                Debug.WriteLine(json);
                 throw new Exception("Gửi đánh giá thất bại");
             }
-
+     
             Debug.WriteLine("Gửi đánh giá thành công");
         }
 
         public async Task<List<Review>> GetReviewAsync(string productId)
         {
-            var response = await _httpClient.GetAsync($"{AppConstants.BaseApiUrl}/reviews/{productId}");
+            var response = await _httpClient.GetAsync($"{AppConstants.BaseApiUrl}{AppConstants.ReviewEndpoint}/{productId}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -63,7 +61,6 @@ namespace SellPhoneApplication.Services
             });
 
             return apiResponse?.Result ?? new List<Review>();
-
         }
     }
 }

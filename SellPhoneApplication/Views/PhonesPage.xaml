@@ -316,7 +316,14 @@
                                             HeightRequest="16"
                                             Source="heart.png"
                                             WidthRequest="16" />
-                                        <Label FontSize="14" Text="Yêu thích" />
+                                        <Label
+                                            FontSize="14"
+                                            Text="Yêu thích"
+                                            TextColor="Red">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding BindingContext.ToggleFavoriteCommand, Source={x:Reference Name=PhonesPageView}}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
                                     </HorizontalStackLayout>
 
                                     <Button

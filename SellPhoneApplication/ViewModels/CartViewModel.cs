@@ -7,6 +7,7 @@ using System.Diagnostics;
 public partial class CartViewModel : ObservableObject
 {
     private readonly ICartService _cartService;
+    private readonly IOrderService _orderService;
 
     [ObservableProperty]
     private ObservableCollection<CartItem> cartItems;
@@ -20,17 +21,17 @@ public partial class CartViewModel : ObservableObject
 
     public double Total => Subtotal - Discount + DeliveryFee;
 
-    public CartViewModel(ICartService cartService)
+    public CartViewModel(ICartService cartService, IOrderService orderService)
     {
         _cartService = cartService;
+        _orderService = orderService;
 
-
-        LoadCartItemsCommand.Execute(null);
-
+        LoadCartItemsCommand.Execute(null);       
     }
 
+
     [RelayCommand]
-    private async Task LoadCartItems()
+    public async Task LoadCartItems()
     {
         try
         {
@@ -66,5 +67,11 @@ public partial class CartViewModel : ObservableObject
 
             Debug.WriteLine("Lỗi khi xóa sản phẩm: " + ex.Message);
         }
+    }
+
+    [RelayCommand]
+    private async Task PlaceOrder()
+    {
+       await _orderService.PlaceOrderAsync();
     }
 }

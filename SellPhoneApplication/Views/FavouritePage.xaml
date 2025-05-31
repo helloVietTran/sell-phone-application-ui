@@ -103,7 +103,7 @@
                                             Text="Bỏ thích"
                                             TextColor="Red">
                                             <Label.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={x:Reference FavouritePage}, Path=BindingContext.UnfavoriteCommand}" CommandParameter="{Binding .}" />
+                                                <TapGestureRecognizer Command="{Binding Source={x:Reference FavouritePageView}, Path=BindingContext.UnfavoriteCommand}" CommandParameter="{Binding .}" />
                                             </Label.GestureRecognizers>
                                         </Label>
                                     </HorizontalStackLayout>

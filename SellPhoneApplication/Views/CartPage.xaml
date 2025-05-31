@@ -197,6 +197,7 @@
 
                     <Button
                         BackgroundColor="#000"
+                        Command="{Binding PlaceOrderCommand}"
                         Text="Đặt hàng"
                         TextColor="White"
                         WidthRequest="200" />

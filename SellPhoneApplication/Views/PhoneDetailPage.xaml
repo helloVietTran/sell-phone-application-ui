@@ -94,9 +94,19 @@
                                         Source="star_icon.png"
                                         WidthRequest="20" />
                                 </Frame>
+                                <Frame
+                                    Padding="0"
+                                    BackgroundColor="{DynamicResource CustomGreen}"
+                                    HeightRequest="24"
+                                    WidthRequest="24">
+                                    <Image
+                                        HeightRequest="20"
+                                        Source="star_icon.png"
+                                        WidthRequest="20" />
+                                </Frame>
                             </StackLayout>
                             <Label
-                                Text="4.0/5"
+                                Text="5.0/5"
                                 TextColor="Black"
                                 VerticalOptions="Center" />
                         </HorizontalStackLayout>
@@ -106,7 +116,7 @@
                             <Label
                                 FontAttributes="Bold"
                                 FontSize="24"
-                                Text="{Binding Phone.Price, StringFormat='${0:F2}'}"
+                                Text="{Binding Phone.Price, StringFormat='{}{0:N0} vnđ'}"
                                 TextColor="Black" />
                         </HorizontalStackLayout>
 
@@ -188,7 +198,7 @@
                         <Label
                             FontAttributes="Bold"
                             FontSize="16"
-                            Text="Số bài review (400)" />
+                            Text="Số bài review (2)" />
 
                         <HorizontalStackLayout Spacing="10">
                             <!--  Dropdown chọn sort  -->
@@ -318,7 +328,7 @@
                                         <Label
                                             FontSize="12"
                                             HorizontalOptions="Start"
-                                            Text="{Binding Date, StringFormat='Đăng vào ngày {0:dd/MM/yyyy}'}"
+                                            Text="{Binding CreatedAt}"
                                             TextColor="Gray" />
                                     </VerticalStackLayout>
                                 </Frame>

@@ -22,6 +22,10 @@ namespace SellPhoneApplication
             builder.UseMauiCommunityToolkit();
             builder.Services.AddSingleton<ICartService, CartService>();
             builder.Services.AddSingleton<IReviewService, ReviewService>();
+            builder.Services.AddSingleton<IAuthService, AuthService>();
+            builder.Services.AddSingleton<IProductService, ProductService>();
+            builder.Services.AddSingleton<IOrderService, OrderService>();
+            builder.Services.AddSingleton<IFavoriteService, FavoriteService>();
 
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegisterViewModel>();
@@ -33,7 +37,6 @@ namespace SellPhoneApplication
             builder.Services.AddTransient<FavouriteViewModel>();
             builder.Services.AddTransient<ProductManagementViewModel>();
             builder.Services.AddTransient<OrderManagementViewModel>();
-
 
             builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<HomePage>();

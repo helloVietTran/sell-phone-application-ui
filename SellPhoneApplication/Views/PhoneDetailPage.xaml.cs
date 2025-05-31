@@ -1,5 +1,6 @@
-using CommunityToolkit.Maui.Views;
+﻿using CommunityToolkit.Maui.Views;
 using SellPhoneApplication.Shared;
+using SellPhoneApplication.DTOs;
 namespace SellPhoneApplication.Views;
 
 public partial class PhoneDetailPage : ContentPage
@@ -8,17 +9,30 @@ public partial class PhoneDetailPage : ContentPage
     {
         InitializeComponent();
         BindingContext = vm;
+
         Shell.SetFlyoutBehavior(this, FlyoutBehavior.Disabled);
     }
-    private async void OnWriteReviewClicked(object sender, EventArgs e)
+    private void OnWriteReviewClicked(object sender, EventArgs e)
     {
         var popup = new ReviewPopup();
-        var result = await this.ShowPopupAsync(popup);
 
-        if (popup.Rating > 0 && !string.IsNullOrWhiteSpace(popup.Comment))
+        // 👇 Inject callback 
+        if (BindingContext is PhoneDetailViewModel vm)
         {
+            popup.OnSubmitReview = async (rating, comment) =>
+            {
+                var request = new ReviewRequest
+                {
+                    Rating = rating,
+                    Content = comment,
+                   
+                };
 
+                await vm.SubmitReviewAsync(request);
+            };
         }
+
+        this.ShowPopup(popup);
     }
 
 }

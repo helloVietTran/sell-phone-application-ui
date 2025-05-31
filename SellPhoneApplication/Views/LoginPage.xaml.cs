@@ -2,7 +2,6 @@
 
 public partial class LoginPage : ContentPage
 {
-    // tiêm loginviewmodel
     public LoginPage(LoginViewModel vm)
     {
         InitializeComponent();
