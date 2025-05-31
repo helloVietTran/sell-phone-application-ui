@@ -1,18 +1,21 @@
+using CommunityToolkit.Maui.Views;
+using SellPhoneApplication.Shared;
 namespace SellPhoneApplication.Views;
 
 public partial class ProductManagementPage : ContentPage
 {
-    public ProductManagementPage()
+    public ProductManagementPage(ProductManagementViewModel vm)
     {
         InitializeComponent();
-        BindingContext = new ProductManagementViewModel();
+        BindingContext = vm;
 
         Shell.SetFlyoutBehavior(this, FlyoutBehavior.Disabled);
     }
 
-    private async void OnOrderManagementTapped(object sender, EventArgs e)
+    private async void OnAddNewClicked(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync("//OrderManagementPage");
+        var popup = new PhonePopup();
+        await Application.Current.MainPage.ShowPopupAsync(popup);
     }
 
 }

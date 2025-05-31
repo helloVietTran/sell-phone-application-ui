@@ -26,7 +26,7 @@ public partial class CartViewModel : ObservableObject
         _cartService = cartService;
         _orderService = orderService;
 
-        LoadCartItemsCommand.Execute(null);       
+        LoadCartItemsCommand.Execute(null);
     }
 
 
@@ -72,6 +72,6 @@ public partial class CartViewModel : ObservableObject
     [RelayCommand]
     private async Task PlaceOrder()
     {
-       await _orderService.PlaceOrderAsync();
+        await _orderService.PlaceOrderAsync();
     }
 }

@@ -38,9 +38,14 @@ public partial class HeaderView : ContentView
     }
 
 
-    private void OnManagementTapped(object sender, EventArgs e)
+    private void OnProductManagementTapped(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("//ProductManagementPage");
+    }
+
+    private void OnOrderManagementTapped(object sender, EventArgs e)
+    {
+        Shell.Current.GoToAsync("//OrderManagementPage");
     }
 
     private void OnUserTapped(object sender, EventArgs e)
@@ -55,7 +60,7 @@ public partial class HeaderView : ContentView
 
     private void OnCartTapped(object sender, EventArgs e)
     {
-       
+
         Shell.Current.GoToAsync("//CartPage");
     }
 }

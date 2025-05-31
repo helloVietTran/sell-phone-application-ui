@@ -2,8 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using SellPhoneApplication.Services;
 using System.Text.RegularExpressions;
-
-
 public partial class LoginViewModel : ObservableObject
 {
     [ObservableProperty]
@@ -65,6 +63,7 @@ public partial class LoginViewModel : ObservableObject
             {
                 GeneralError = "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin!";
             }
+          
         }
         catch (Exception ex)
         {

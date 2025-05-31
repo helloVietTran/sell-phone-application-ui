@@ -15,7 +15,7 @@ namespace SellPhoneApplication.Views
         {
             base.OnAppearing();
             // call api every component mounted
-            await _viewModel.LoadCartItems(); 
+            await _viewModel.LoadCartItems();
         }
     }
 }

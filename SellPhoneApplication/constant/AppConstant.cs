@@ -10,6 +10,6 @@
         public const string CartEndpoint = "/cart";
         public const string OrderEndpoint = "/orders";
         public const string ReviewEndpoint = "/reviews";
-        
+
     }
 }

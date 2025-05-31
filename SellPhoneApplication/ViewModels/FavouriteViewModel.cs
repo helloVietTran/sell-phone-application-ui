@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using SellPhoneApplication.Models;
 using SellPhoneApplication.Services;
 using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 public partial class FavouriteViewModel : ObservableObject
 {
@@ -12,7 +11,7 @@ public partial class FavouriteViewModel : ObservableObject
     public FavouriteViewModel(IFavouriteService favouriteService)
     {
         _favouriteService = favouriteService;
-        
+
     }
 
     [ObservableProperty]
