@@ -11,7 +11,7 @@ namespace SellPhoneApplication.Services
 {
     public interface IProductService
     {
-        Task<List<Phone>> FilterPhonesAsync(double maxPrice, IEnumerable<string> brands, IEnumerable<string> memories, string color);
+        Task<List<Phone>> FilterPhonesAsync(double maxPrice, IEnumerable<string> brands, IEnumerable<string> memories, string color, string sortByPrice);
       
     }
     public class ProductService : IProductService
@@ -23,7 +23,7 @@ namespace SellPhoneApplication.Services
             _httpClient = new HttpClient();
         }
 
-        public async Task<List<Phone>> FilterPhonesAsync(double maxPrice, IEnumerable<string> brands, IEnumerable<string> memories, string color)
+        public async Task<List<Phone>> FilterPhonesAsync(double maxPrice, IEnumerable<string> brands, IEnumerable<string> memories, string color, string sortByPrice)
         {
             var query = HttpUtility.ParseQueryString(string.Empty);
 
@@ -45,6 +45,9 @@ namespace SellPhoneApplication.Services
             if (!string.IsNullOrEmpty(color))
                 query["color"] = color;
 
+            if (!string.IsNullOrEmpty(sortByPrice))
+                query["sortByPrice"] = sortByPrice;
+
             try
             {
                 var response = await _httpClient.GetAsync($"{AppConstants.BaseApiUrl}{AppConstants.FilterEndpoint}?{query}");
@@ -59,7 +62,7 @@ namespace SellPhoneApplication.Services
                     };
 
                     var res = JsonSerializer.Deserialize<ApiResponse<List<Phone>>>(json, options);
-                    Debug.WriteLine("Gọi API thành công: " + res);
+                    Debug.WriteLine("Gọi API lấy điện thoại thành công: " + res);
                     return res?.Result ?? new List<Phone>();
                 }
                 else

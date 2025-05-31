@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 public partial class FavouriteViewModel : ObservableObject
 {
-    private readonly IFavoriteService _favoriteService;
+    private readonly IFavouriteService _favouriteService;
 
-    public FavouriteViewModel(IFavoriteService favoriteService)
+    public FavouriteViewModel(IFavouriteService favouriteService)
     {
-        _favoriteService = favoriteService;
-        // Load ngay khi khởi tạo
-        _ = LoadFavoritesAsync();
+        _favouriteService = favouriteService;
+        
     }
 
     [ObservableProperty]
@@ -28,7 +27,7 @@ public partial class FavouriteViewModel : ObservableObject
     {
         try
         {
-            var list = await _favoriteService.GetFavoritesAsync();
+            var list = await _favouriteService.GetFavoritesAsync();
             FavouritePhones = new ObservableCollection<FavoriteProduct>(list);
         }
         catch (System.Exception ex)
@@ -39,13 +38,13 @@ public partial class FavouriteViewModel : ObservableObject
 
     // Command remove (unfavorite)
     [RelayCommand]
-    public async Task UnfavoriteAsync(FavoriteProduct item)
+    public async Task UnfavouriteAsync(FavoriteProduct item)
     {
         if (item == null) return;
 
         try
         {
-            await _favoriteService.RemoveFavoriteAsync(item.FavoriteId);
+            await _favouriteService.RemoveFavouriteAsync(item.FavouriteId);
             // Reload lại danh sách
             await LoadFavoritesAsync();
         }
