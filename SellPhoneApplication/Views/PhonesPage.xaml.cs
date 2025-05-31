@@ -63,7 +63,7 @@ public partial class PhonesPage : ContentPage
                         break;
                 }
 
-                vm.ApplyFilterCommand.Execute(null); 
+                vm.ApplyFilterCommand.Execute(null);
             }
         }
     }

@@ -1,8 +1,8 @@
-﻿using SellPhoneApplication.Models;
+﻿using SellPhoneApplication.constant;
 using SellPhoneApplication.DTOs;
-using SellPhoneApplication.constant;
-using System.Text.Json;
+using SellPhoneApplication.Models;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace SellPhoneApplication.Services
 {
@@ -33,7 +33,7 @@ namespace SellPhoneApplication.Services
 
         public async Task<List<FavoriteProduct>> GetFavoritesAsync()
         {
-                      
+
 
             var response = await _httpClient.GetAsync($"{AppConstants.BaseApiUrl}/favourite");
 
@@ -50,7 +50,7 @@ namespace SellPhoneApplication.Services
             {
                 PropertyNameCaseInsensitive = true
             });
-         
+
 
             return res?.Result ?? new List<FavoriteProduct>();
         }
@@ -58,7 +58,7 @@ namespace SellPhoneApplication.Services
 
         public async Task RemoveFavouriteAsync(int favouriteId)
         {
-         
+
             try
             {
                 var response = await _httpClient.DeleteAsync($"{AppConstants.BaseApiUrl}/favourite/{favouriteId}");
@@ -74,7 +74,7 @@ namespace SellPhoneApplication.Services
             catch (Exception ex)
             {
                 Debug.WriteLine($"[RemoveFavoriteAsync] Exception occurred: {ex.Message}");
-                throw; 
+                throw;
             }
         }
 

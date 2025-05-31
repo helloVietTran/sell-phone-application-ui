@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Maui.Views;
-using SellPhoneApplication.Shared;
 using SellPhoneApplication.DTOs;
+using SellPhoneApplication.Shared;
 namespace SellPhoneApplication.Views;
 
 public partial class PhoneDetailPage : ContentPage
@@ -25,7 +25,7 @@ public partial class PhoneDetailPage : ContentPage
                 {
                     Rating = rating,
                     Content = comment,
-                   
+
                 };
 
                 await vm.SubmitReviewAsync(request);

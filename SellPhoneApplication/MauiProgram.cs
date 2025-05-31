@@ -38,6 +38,7 @@ namespace SellPhoneApplication
             builder.Services.AddTransient<ProductManagementViewModel>();
             builder.Services.AddTransient<OrderManagementViewModel>();
 
+
             builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<HomePage>();
             builder.Services.AddSingleton<RegisterPage>();
@@ -47,7 +48,6 @@ namespace SellPhoneApplication
             builder.Services.AddSingleton<FavouritePage>();
             builder.Services.AddSingleton<ProductManagementPage>();
             builder.Services.AddSingleton<OrderManagementPage>();
-
 
 
 

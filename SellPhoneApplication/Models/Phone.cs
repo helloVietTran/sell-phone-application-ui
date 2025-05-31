@@ -14,7 +14,7 @@ namespace SellPhoneApplication.Models
         public string ImageUrl { get; set; }
         public string Type { get; set; }
         public string Brand { get; set; }
-        
+
         public float RatingPoint { get; set; }
 
         public int RatingCount { get; set; }

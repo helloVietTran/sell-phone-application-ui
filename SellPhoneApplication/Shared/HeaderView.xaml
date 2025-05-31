@@ -3,80 +3,93 @@
     x:Class="SellPhoneApplication.Shared.HeaderView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <Grid
-        Grid.Row="0"
-        Padding="20,20,20,30"
-        ColumnSpacing="10">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
 
-        <!--  Logo  -->
-        <Image
-            Grid.Column="0"
-            HeightRequest="18"
-            Source="senifone.png" />
+    <VerticalStackLayout Spacing="0">
 
-        <!--  Navigation Links  -->
-        <StackLayout
-            Grid.Column="1"
-            HorizontalOptions="Center"
-            Orientation="Horizontal"
-            Spacing="25">
-            <Label Text="Trang chủ" TextColor="{DynamicResource NavigationTextColor}">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnHomeTapped" />
-                </Label.GestureRecognizers>
-            </Label>
-            <Label Text="Danh mục sản phẩm" TextColor="{DynamicResource NavigationTextColor}">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnPhonesTapped" />
-                </Label.GestureRecognizers>
-            </Label>
-            <Label Text="Yêu thích" TextColor="{DynamicResource NavigationTextColor}">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnFavouriteTapped" />
-                </Label.GestureRecognizers>
-            </Label>
+        <!--  Header nội dung  -->
+        <Grid Padding="20,20,20,30" ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-            <Label
-                IsVisible="{Binding IsAdmin}"
-                Text="Chức năng quản lý"
-                TextColor="{DynamicResource NavigationTextColor}">
-                <Label.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnManagementTapped" />
-                </Label.GestureRecognizers>
-            </Label>
+            <!--  Logo  -->
+            <Image
+                Grid.Column="0"
+                HeightRequest="18"
+                Source="senifone.png" />
 
-        </StackLayout>
+            <!--  Navigation  -->
+            <StackLayout
+                Grid.Column="1"
+                HorizontalOptions="Center"
+                Orientation="Horizontal"
+                Spacing="25">
+                <Label Text="Trang chủ" TextColor="{DynamicResource NavigationTextColor}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnHomeTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Text="Danh mục sản phẩm" TextColor="{DynamicResource NavigationTextColor}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnPhonesTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label Text="Yêu thích" TextColor="{DynamicResource NavigationTextColor}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnFavouriteTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <Label
+                    IsVisible="{Binding IsAdmin}"
+                    Text="QL sản phẩm"
+                    TextColor="{DynamicResource NavigationTextColor}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnProductManagementTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
 
-        <!--  Icons  -->
-        <StackLayout
-            Grid.Column="2"
-            HorizontalOptions="End"
-            Orientation="Horizontal"
-            Spacing="15">
+                <Label
+                    IsVisible="{Binding IsAdmin}"
+                    Text="QL đơn hàng"
+                    TextColor="{DynamicResource NavigationTextColor}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnOrderManagementTapped" />
+                    </Label.GestureRecognizers>
+                </Label>
+            </StackLayout>
 
-            <Image HeightRequest="18" Source="icon_user.png">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnUserTapped" />
-                </Image.GestureRecognizers>
-            </Image>
+            <!--  Icons  -->
+            <StackLayout
+                Grid.Column="2"
+                HorizontalOptions="End"
+                Orientation="Horizontal"
+                Spacing="15">
+                <Image HeightRequest="18" Source="icon_user.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnUserTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
 
-            <Image HeightRequest="18" Source="icon_cart.png">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnCartTapped" />
-                </Image.GestureRecognizers>
-            </Image>
+                <Image HeightRequest="18" Source="icon_cart.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnCartTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
 
+                <Image HeightRequest="20" Source="logout_icon.png">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnLogoutTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+            </StackLayout>
+        </Grid>
 
-            <Image HeightRequest="20" Source="logout_icon.png">
-                <Image.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="OnLogoutTapped" />
-                </Image.GestureRecognizers>
-            </Image>
-        </StackLayout>
-    </Grid>
+        <!--  Divider  -->
+        <BoxView
+            BackgroundColor="#D3D3D3"
+            HeightRequest="0.5"
+            HorizontalOptions="FillAndExpand" />
+    </VerticalStackLayout>
 </ContentView>

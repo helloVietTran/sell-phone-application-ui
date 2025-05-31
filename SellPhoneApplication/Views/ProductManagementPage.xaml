@@ -3,6 +3,7 @@
     x:Class="SellPhoneApplication.Views.ProductManagementPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:SellPhoneApplication.Models"
     xmlns:shared="clr-namespace:SellPhoneApplication.Shared"
     x:Name="ProductManagementPageView"
     BackgroundColor="#F8F8F8">
@@ -23,11 +24,7 @@
 
 
         <shared:HeaderView Grid.Row="0" />
-        <!--  Divider  -->
-        <BoxView
-            Grid.Row="1"
-            BackgroundColor="#D3D3D3"
-            HeightRequest="0.5" />
+
 
         <!--  Title and Add Button  -->
         <Grid
@@ -35,44 +32,33 @@
             Padding="80,10"
             ColumnDefinitions="*,Auto"
             VerticalOptions="Center">
-            <HorizontalStackLayout Spacing="10">
-                <Label
-                    FontAttributes="Bold"
-                    FontSize="20"
-                    Text="QL sản phẩm"
-                    TextDecorations="Underline"
-                    VerticalOptions="Center" />
 
-                <Label
-                    FontAttributes="Bold"
-                    FontSize="20"
-                    Text="QL đơn hàng"
-                    VerticalOptions="Center">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="OnOrderManagementTapped" />
-                    </Label.GestureRecognizers>
-                </Label>
+            <Label
+                FontAttributes="Bold"
+                FontSize="24"
+                Text="QL sản phẩm"
+                TextColor="#212121"
+                VerticalOptions="Center" />
 
-
-            </HorizontalStackLayout>
             <SearchBar
                 Margin="10,0"
                 HorizontalOptions="End"
                 Placeholder="Tìm kiếm..."
-                SearchCommand="{Binding SearchCommand}"
+                SearchCommand="{Binding LoadProductsCommand}"
+                Text="{Binding SearchValue}"
                 VerticalOptions="Center"
                 WidthRequest="200" />
+
             <Button
                 Grid.Column="1"
                 Padding="10,0"
                 BackgroundColor="#FDBA12"
-                Command="{Binding AddNewCommand}"
+                Clicked="OnAddNewClicked"
                 CornerRadius="8"
                 FontSize="14"
                 Text="Thêm mới"
                 TextColor="White" />
         </Grid>
-
 
 
         <!--  Column headers  -->
@@ -119,7 +105,7 @@
                     <LinearItemsLayout ItemSpacing="5" Orientation="Vertical" />
                 </CollectionView.ItemsLayout>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="models:Phone">
                         <Frame
                             Margin="0,0,0,10"
                             Padding="8,16"
@@ -140,7 +126,7 @@
                                     <Image
                                         Aspect="AspectFill"
                                         HeightRequest="40"
-                                        Source="mockup_phone.png"
+                                        Source="{Binding ImageUrl}"
                                         VerticalOptions="Center"
                                         WidthRequest="40" />
                                     <Label
@@ -182,11 +168,7 @@
                                     <Image
                                         HeightRequest="14"
                                         Source="pencil_icon.png"
-                                        WidthRequest="14">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference phoneListPage}, Path=BindingContext.EditCommand}" CommandParameter="{Binding .}" />
-                                        </Image.GestureRecognizers>
-                                    </Image>
+                                        WidthRequest="14" />
 
                                     <Image
                                         Margin="10,0,0,0"
@@ -194,7 +176,7 @@
                                         Source="delete_icon.png"
                                         WidthRequest="15">
                                         <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference phoneListPage}, Path=BindingContext.DeleteCommand}" CommandParameter="{Binding .}" />
+                                            <TapGestureRecognizer Command="{Binding Source={x:Reference ProductManagementPageView}, Path=BindingContext.DeletePhoneCommand}" CommandParameter="{Binding .}" />
                                         </Image.GestureRecognizers>
                                     </Image>
                                 </HorizontalStackLayout>

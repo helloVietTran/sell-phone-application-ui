@@ -40,7 +40,7 @@ namespace SellPhoneApplication.Services
                 Debug.WriteLine(json);
                 throw new Exception("Gửi đánh giá thất bại");
             }
-     
+
             Debug.WriteLine("Gửi đánh giá thành công");
         }
 
