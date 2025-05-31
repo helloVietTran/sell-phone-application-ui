@@ -1,71 +1,74 @@
-﻿
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SellPhoneApplication.Services;
 using System.Text.RegularExpressions;
+
+
 public partial class LoginViewModel : ObservableObject
 {
-    // tự động tạo NotifyPropertyChanged
     [ObservableProperty]
     private string email;
 
     [ObservableProperty]
     private string password;
 
-    // chữa lỗi
+    // Thuộc tính để hiển thị lỗi tổng quát
     [ObservableProperty]
-    private string emailError;
+    private string generalError;
 
-    [ObservableProperty]
-    private string passwordError;
+    private readonly IAuthService _authService;
 
-    // Tạo command xử lý đăng nhập
+    public LoginViewModel(IAuthService authService)
+    {
+        _authService = authService;
+    }
+
     [RelayCommand]
     async Task LoginAsync()
     {
-        bool isValid = true;
-
-        EmailError = "";
-        PasswordError = "";
+        // Reset lỗi tổng quát khi bắt đầu kiểm tra
+        GeneralError = "";
 
         if (string.IsNullOrWhiteSpace(Email))
         {
-            EmailError = "Vui lòng nhập email!";
-            isValid = false;
+            GeneralError = "Vui lòng nhập email!";
+            return;
         }
-        else
+        else if (!Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
         {
-            if (!Regex.IsMatch(Email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-            {
-                EmailError = "Email không hợp lệ!";
-                isValid = false;
-            }
+            GeneralError = "Email không hợp lệ!";
+            return;
         }
 
         // Validate mật khẩu: không rỗng, tối thiểu 6 ký tự và không chứa ký tự đặc biệt.
         if (string.IsNullOrWhiteSpace(Password))
         {
-            PasswordError = "Vui lòng nhập mật khẩu!";
-            isValid = false;
-        }
-        else
-        {
-            if (Password.Length < 6)
-            {
-                PasswordError = "Mật khẩu tối thiểu 6 ký tự!";
-                isValid = false;
-            }
-            // Kiểm tra mật khẩu chỉ chứa chữ và số.
-            else if (!Regex.IsMatch(Password, @"^[A-Za-z0-9]+$"))
-            {
-                PasswordError = "Mật khẩu không được chứa ký tự đặc biệt!";
-                isValid = false;
-            }
-        }
-
-        if (!isValid)
+            GeneralError = "Vui lòng nhập mật khẩu!";
             return;
+        }
+        else if (Password.Length < 6)
+        {
+            GeneralError = "Mật khẩu tối thiểu 6 ký tự!";
+            return;
+        }
+        else if (!Regex.IsMatch(Password, @"^[A-Za-z0-9]+$"))
+        {
+            GeneralError = "Mật khẩu không được chứa ký tự đặc biệt!";
+            return;
+        }
 
-        await Task.Delay(1000);
-        await Shell.Current.GoToAsync("//HomePage");
+
+        try
+        {
+            var success = await _authService.LoginAsync(Email, Password);
+            if (!success)
+            {
+                GeneralError = "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin!";
+            }
+        }
+        catch (Exception ex)
+        {
+            GeneralError = "Đã xảy ra lỗi: " + ex.Message;
+        }
     }
 }

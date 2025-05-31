@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SellPhoneApplication.Views.CartPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:shared="clr-namespace:SellPhoneApplication.Shared"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Name="CartPageView">
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+
+        </Grid.RowDefinitions>
+
+        <shared:HeaderView Grid.Row="0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="200,0,200,20" Spacing="20">
+                <Label
+                    Margin="10,20,0,10"
+                    FontAttributes="Bold"
+                    FontSize="24"
+                    Text="GIỎ HÀNG CỦA BẠN"
+                    TextColor="Black" />
+
+                <Image
+                    Margin="0"
+                    HeightRequest="200"
+                    HorizontalOptions="Center"
+                    IsVisible="{Binding HasItems, Converter={StaticResource InverseBoolConverter}}"
+                    Source="empty_cart.png" />
+
+                <CollectionView Margin="0,0,0,20" ItemsSource="{Binding CartItems}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="10" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame
+                                Margin="10,5"
+                                Padding="10"
+                                BackgroundColor="White"
+                                CornerRadius="15"
+                                HasShadow="True">
+                                <Grid
+                                    ColumnDefinitions="Auto,*,Auto"
+                                    ColumnSpacing="10"
+                                    RowDefinitions="Auto,Auto,Auto,Auto">
+                                    <Image
+                                        Grid.RowSpan="3"
+                                        Aspect="AspectFill"
+                                        HeightRequest="60"
+                                        Source="{Binding ImageUrl}"
+                                        VerticalOptions="Center"
+                                        WidthRequest="60" />
+                                    <Label
+                                        Grid.Column="1"
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        Text="{Binding ProductName}"
+                                        TextColor="Black" />
+
+
+                                    <Frame
+                                        Grid.Column="2"
+                                        Padding="6"
+                                        BackgroundColor="Transparent"
+                                        BorderColor="Transparent"
+                                        CornerRadius="16"
+                                        HasShadow="False">
+                                        <Image
+                                            HeightRequest="20"
+                                            Source="delete_icon.png"
+                                            WidthRequest="20">
+                                            <Image.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding BindingContext.RemoveCommand, Source={x:Reference Name=CartPageView}}" CommandParameter="{Binding .}" />
+                                            </Image.GestureRecognizers>
+                                        </Image>
+                                    </Frame>
+
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        FontSize="13"
+                                        Text="{Binding Memory, StringFormat='Bộ nhớ: {0} GB'}"
+                                        TextColor="Gray" />
+
+                                    <Label
+                                        Grid.Row="2"
+                                        Grid.Column="1"
+                                        FontSize="13"
+                                        Text="{Binding Ram, StringFormat='Ram: {0} GB'}"
+                                        TextColor="Gray" />
+
+                                    <Label
+                                        Grid.Row="3"
+                                        Grid.Column="1"
+                                        FontSize="12"
+                                        Text="{Binding Quantity, StringFormat='x{0}'}"
+                                        TextColor="Gray" />
+
+                                    <Label
+                                        Grid.Row="1"
+                                        Grid.Column="2"
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        Text="{Binding Price, StringFormat='{}{0:N0} vnđ'}"
+                                        TextColor="{DynamicResource CustomGreen}"
+                                        VerticalOptions="End" />
+                                </Grid>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+
+                <BoxView
+                    Margin="0,5"
+                    BackgroundColor="#D3D3D3"
+                    HeightRequest="1" />
+
+                <Label
+                    Margin="4,10"
+                    FontAttributes="Bold"
+                    FontSize="20"
+                    Text="Thông tin đơn hàng"
+                    TextColor="Black" />
+
+                <VerticalStackLayout Padding="5,0" Spacing="15">
+
+                    <!--  Subtotal  -->
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label
+                            FontSize="14"
+                            Text="Tổng tiền"
+                            TextColor="Gray"
+                            VerticalOptions="Center" />
+                        <Label
+                            Grid.Column="1"
+                            FontAttributes="Bold"
+                            FontSize="14"
+                            Text="{Binding Subtotal, StringFormat='{}{0:N0} vnđ'}"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                    </Grid>
+
+                    <!--  Discount  -->
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label
+                            FontSize="14"
+                            Text="Giảm giá lần đầu mua sắm (-20%)"
+                            TextColor="Gray"
+                            VerticalOptions="Center" />
+                        <Label
+                            Grid.Column="1"
+                            FontAttributes="Bold"
+                            FontSize="14"
+                            Text="{Binding Discount, StringFormat='- {0:N0} vnđ'}"
+                            TextColor="Red"
+                            VerticalOptions="Center" />
+                    </Grid>
+
+                    <!--  Delivery Fee  -->
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label
+                            FontSize="14"
+                            Text="Cước vận chuyển"
+                            TextColor="Gray"
+                            VerticalOptions="Center" />
+                        <Label
+                            Grid.Column="1"
+                            FontAttributes="Bold"
+                            FontSize="14"
+                            Text="{Binding DeliveryFee, StringFormat='{}{0:N0} vnđ'}"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                    </Grid>
+
+                    <!--  Total  -->
+                    <Grid ColumnDefinitions="*,Auto">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            Text="Tổng cộng"
+                            TextColor="Black"
+                            VerticalOptions="Center" />
+                        <Label
+                            Grid.Column="1"
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            Text="{Binding Total, StringFormat='{}{0:N0} vnđ'}"
+                            TextColor="{DynamicResource CustomGreen}"
+                            VerticalOptions="Center" />
+                    </Grid>
+
+                    <Button
+                        BackgroundColor="#000"
+                        Command="{Binding PlaceOrderCommand}"
+                        Text="Đặt hàng"
+                        TextColor="White"
+                        WidthRequest="200" />
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

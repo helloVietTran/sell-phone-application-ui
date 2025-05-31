@@ -2,48 +2,47 @@ namespace SellPhoneApplication.Shared;
 
 public partial class HeaderView : ContentView
 {
-	public HeaderView()
-	{
-		InitializeComponent();
-	}
-
-    private async void OnHomeTapped(object sender, EventArgs e)
+    public HeaderView() : this(new HeaderViewModel())
     {
-        //await Shell.Current.GoToAsync("//home");
+    }
+    public HeaderView(HeaderViewModel vm)
+    {
+        InitializeComponent();
+        BindingContext = vm;
     }
 
-    private async void OnSenifoneTapped(object sender, EventArgs e)
+    private void OnHomeTapped(object sender, EventArgs e)
     {
-        //await Shell.Current.GoToAsync("//senifoneS1");
+        Shell.Current.GoToAsync("//HomePage");
     }
 
-    private async void OnAccessoriesTapped(object sender, EventArgs e)
+    private void OnPhonesTapped(object sender, EventArgs e)
     {
-        // await Shell.Current.GoToAsync("//accessories");
+        Shell.Current.GoToAsync("//PhonesPage");
     }
 
-    private async void OnCustomerServiceTapped(object sender, EventArgs e)
+    private void OnFavouriteTapped(object sender, EventArgs e)
     {
-        //await Shell.Current.GoToAsync("//customerService");
+        Shell.Current.GoToAsync("//FavouritePage");
     }
 
-    private async void OnPointsOfSaleTapped(object sender, EventArgs e)
+    private void OnManagementTapped(object sender, EventArgs e)
     {
-        // await Shell.Current.GoToAsync("//pointsOfSale");
+        Shell.Current.GoToAsync("//ProductManagementPage");
     }
 
-    private async void OnUserTapped(object sender, EventArgs e)
+    private void OnUserTapped(object sender, EventArgs e)
     {
-        //await Shell.Current.GoToAsync("//profile");
+        Shell.Current.GoToAsync("//ProfilePage");
     }
 
-    private async void OnSearchTapped(object sender, EventArgs e)
+    private void OnLogoutTapped(object sender, EventArgs e)
     {
-        //   await Shell.Current.GoToAsync("//search");
+        Shell.Current.GoToAsync("//LoginPage");
     }
 
-    private async void OnCartTapped(object sender, EventArgs e)
+    private void OnCartTapped(object sender, EventArgs e)
     {
-        //  await Shell.Current.GoToAsync("//cart");
+        Shell.Current.GoToAsync("//CartPage");
     }
 }

@@ -1,0 +1,344 @@
+<ContentPage
+    x:Class="SellPhoneApplication.Views.PhoneDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:shared="clr-namespace:SellPhoneApplication.Shared"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+
+    <Grid RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <shared:HeaderView Grid.Row="0" />
+
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="10" Spacing="20">
+
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="18"
+                    Text="{Binding ErrorMessage}"
+                    TextColor="Red"
+                    TextTransform="Uppercase" />
+
+
+                <Grid ColumnSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Phone Image  -->
+                    <Image
+                        Grid.Column="0"
+                        Aspect="AspectFit"
+                        HeightRequest="300"
+                        Source="{Binding Phone.ImageUrl}" />
+
+                    <!--  Phone Specifications  -->
+                    <VerticalStackLayout
+                        Grid.Column="1"
+                        Padding="20"
+                        Spacing="10">
+
+                        <!--  Tên sản phẩm  -->
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="24"
+                            Text="{Binding Phone.Name}"
+                            TextColor="Black"
+                            TextTransform="Uppercase" />
+
+                        <!--  Rating  -->
+                        <HorizontalStackLayout Spacing="10">
+                            <StackLayout Orientation="Horizontal" Spacing="2">
+                                <Frame
+                                    Padding="0"
+                                    BackgroundColor="{DynamicResource CustomGreen}"
+                                    HeightRequest="24"
+                                    WidthRequest="24">
+                                    <Image
+                                        HeightRequest="20"
+                                        Source="star_icon.png"
+                                        WidthRequest="20" />
+                                </Frame>
+                                <Frame
+                                    Padding="0"
+                                    BackgroundColor="{DynamicResource CustomGreen}"
+                                    HeightRequest="24"
+                                    WidthRequest="24">
+                                    <Image
+                                        HeightRequest="20"
+                                        Source="star_icon.png"
+                                        WidthRequest="20" />
+                                </Frame>
+                                <Frame
+                                    Padding="0"
+                                    BackgroundColor="{DynamicResource CustomGreen}"
+                                    HeightRequest="24"
+                                    WidthRequest="24">
+                                    <Image
+                                        HeightRequest="20"
+                                        Source="star_icon.png"
+                                        WidthRequest="20" />
+                                </Frame>
+                                <Frame
+                                    Padding="0"
+                                    BackgroundColor="{DynamicResource CustomGreen}"
+                                    HeightRequest="24"
+                                    WidthRequest="24">
+                                    <Image
+                                        HeightRequest="20"
+                                        Source="star_icon.png"
+                                        WidthRequest="20" />
+                                </Frame>
+                                <Frame
+                                    Padding="0"
+                                    BackgroundColor="{DynamicResource CustomGreen}"
+                                    HeightRequest="24"
+                                    WidthRequest="24">
+                                    <Image
+                                        HeightRequest="20"
+                                        Source="star_icon.png"
+                                        WidthRequest="20" />
+                                </Frame>
+                            </StackLayout>
+                            <Label
+                                Text="5.0/5"
+                                TextColor="Black"
+                                VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+
+                        <!--  Giá  -->
+                        <HorizontalStackLayout Spacing="10">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="24"
+                                Text="{Binding Phone.Price, StringFormat='{}{0:N0} vnđ'}"
+                                TextColor="Black" />
+                        </HorizontalStackLayout>
+
+                        <!--  Mô tả  -->
+                        <Label
+                            FontSize="14"
+                            Text="{Binding Phone.Description}"
+                            TextColor="Gray" />
+
+                        <!--  Memory  -->
+                        <HorizontalStackLayout Spacing="10">
+                            <Label
+                                FontAttributes="Bold"
+                                Text="Bộ nhớ:"
+                                TextColor="Black" />
+                            <Label
+                                FontSize="14"
+                                Text="{Binding Phone.Memory, StringFormat='{}{0} GB'}"
+                                TextColor="Black" />
+                        </HorizontalStackLayout>
+
+                        <!--  Ram  -->
+                        <HorizontalStackLayout Spacing="10">
+                            <Label
+                                FontAttributes="Bold"
+                                Text="Ram:"
+                                TextColor="Black" />
+                            <Label
+                                FontSize="14"
+                                Text="{Binding Phone.Ram, StringFormat='{}{0} GB'}"
+                                TextColor="Black" />
+                        </HorizontalStackLayout>
+
+                        <FlexLayout
+                            Margin="0,0,0,0"
+                            AlignItems="Center"
+                            BindableLayout.ItemsSource="{Binding SomeCollection}"
+                            Direction="Row"
+                            JustifyContent="Start">
+
+                            <Label
+                                FontAttributes="Bold"
+                                Text="Màu sắc:"
+                                TextColor="Black" />
+
+                            <BoxView
+                                Margin="10,0,0,0"
+                                BackgroundColor="{Binding PhoneColor}"
+                                CornerRadius="10"
+                                HeightRequest="20"
+                                WidthRequest="20" />
+                        </FlexLayout>
+
+
+
+                        <BoxView
+                            Margin="0,5"
+                            BackgroundColor="#D3D3D3"
+                            HeightRequest="1" />
+
+                        <Button
+                            BackgroundColor="#000"
+                            Command="{Binding AddToCartCommand}"
+                            HorizontalOptions="Start"
+                            Text="Thêm vào giỏ hàng"
+                            TextColor="White"
+                            WidthRequest="200" />
+                    </VerticalStackLayout>
+                </Grid>
+
+                <VerticalStackLayout Padding="20" Spacing="10">
+                    <!--  Header  -->
+                    <FlexLayout
+                        Margin="0,10"
+                        AlignItems="Center"
+                        Direction="Row"
+                        HorizontalOptions="Fill"
+                        JustifyContent="SpaceBetween">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            Text="Số bài review (2)" />
+
+                        <HorizontalStackLayout Spacing="10">
+                            <!--  Dropdown chọn sort  -->
+                            <Picker
+                                x:Name="SortPicker"
+                                SelectedIndex="0"
+                                WidthRequest="100">
+                                <Picker.Items>
+
+                                    <x:String>Mới nhất</x:String>
+                                    <x:String>Cũ nhất</x:String>
+                                </Picker.Items>
+                            </Picker>
+
+
+                            <Button
+                                BackgroundColor="#000"
+                                Clicked="OnWriteReviewClicked"
+                                HorizontalOptions="Start"
+                                Text="Review"
+                                TextColor="White"
+                                WidthRequest="80" />
+
+                        </HorizontalStackLayout>
+                    </FlexLayout>
+
+                    <!--  Reviews CollectionView ở đây  -->
+                </VerticalStackLayout>
+
+
+
+                <ScrollView>
+                    <CollectionView ItemsSource="{Binding Reviews}">
+
+                        <CollectionView.ItemsLayout>
+                            <!--  Lưới 2 cột với khoảng cách dọc và ngang  -->
+                            <GridItemsLayout
+                                HorizontalItemSpacing="12"
+                                Orientation="Vertical"
+                                Span="2"
+                                VerticalItemSpacing="12" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame
+                                    Margin="10,10,10,0"
+                                    Padding="15"
+                                    BackgroundColor="White"
+                                    CornerRadius="10"
+                                    HasShadow="True">
+                                    <VerticalStackLayout Spacing="8">
+                                        <!--  Star rating  -->
+                                        <HorizontalStackLayout Spacing="2">
+                                            <Frame
+                                                Padding="0"
+                                                BackgroundColor="{DynamicResource CustomGreen}"
+                                                HeightRequest="24"
+                                                IsVisible="{Binding Rating, Converter={StaticResource StarVisibleConverter}, ConverterParameter=1}"
+                                                WidthRequest="24">
+                                                <Image
+                                                    HeightRequest="20"
+                                                    Source="star_icon.png"
+                                                    WidthRequest="20" />
+                                            </Frame>
+                                            <Frame
+                                                Padding="0"
+                                                BackgroundColor="{DynamicResource CustomGreen}"
+                                                HeightRequest="24"
+                                                IsVisible="{Binding Rating, Converter={StaticResource StarVisibleConverter}, ConverterParameter=2}"
+                                                WidthRequest="24">
+                                                <Image
+                                                    HeightRequest="20"
+                                                    Source="star_icon.png"
+                                                    WidthRequest="20" />
+                                            </Frame>
+                                            <Frame
+                                                Padding="0"
+                                                BackgroundColor="{DynamicResource CustomGreen}"
+                                                HeightRequest="24"
+                                                IsVisible="{Binding Rating, Converter={StaticResource StarVisibleConverter}, ConverterParameter=3}"
+                                                WidthRequest="24">
+                                                <Image
+                                                    HeightRequest="20"
+                                                    Source="star_icon.png"
+                                                    WidthRequest="20" />
+                                            </Frame>
+                                            <Frame
+                                                Padding="0"
+                                                BackgroundColor="{DynamicResource CustomGreen}"
+                                                HeightRequest="24"
+                                                IsVisible="{Binding Rating, Converter={StaticResource StarVisibleConverter}, ConverterParameter=4}"
+                                                WidthRequest="24">
+                                                <Image
+                                                    HeightRequest="20"
+                                                    Source="star_icon.png"
+                                                    WidthRequest="20" />
+                                            </Frame>
+                                            <Frame
+                                                Padding="0"
+                                                BackgroundColor="{DynamicResource CustomGreen}"
+                                                HeightRequest="24"
+                                                IsVisible="{Binding Rating, Converter={StaticResource StarVisibleConverter}, ConverterParameter=5}"
+                                                WidthRequest="24">
+                                                <Image
+                                                    HeightRequest="20"
+                                                    Source="star_icon.png"
+                                                    WidthRequest="20" />
+                                            </Frame>
+                                        </HorizontalStackLayout>
+
+                                        <!--  User name  -->
+                                        <Label
+                                            FontAttributes="Bold"
+                                            FontSize="14"
+                                            Text="{Binding UserName}"
+                                            TextColor="Gray" />
+
+                                        <!--  Review content  -->
+                                        <Label
+                                            FontSize="13"
+                                            MaxLines="3"
+                                            Text="{Binding Content}"
+                                            TextColor="DarkGray" />
+
+                                        <!--  Date  -->
+                                        <Label
+                                            FontSize="12"
+                                            HorizontalOptions="Start"
+                                            Text="{Binding CreatedAt}"
+                                            TextColor="Gray" />
+                                    </VerticalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
+
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

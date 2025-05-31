@@ -1,11 +1,11 @@
-namespace SellPhoneApplication.View;
+namespace SellPhoneApplication.Views;
 
 public partial class HomePage : ContentPage
 {
-	public HomePage()
-	{
-		InitializeComponent();
-	}
+    public HomePage()
+    {
+        InitializeComponent();
+    }
 
     protected override void OnAppearing()
     {
@@ -25,7 +25,7 @@ public partial class HomePage : ContentPage
 
     private async void OnAccessoriesTapped(object sender, EventArgs e)
     {
-       // await Shell.Current.GoToAsync("//accessories");
+        // await Shell.Current.GoToAsync("//accessories");
     }
 
     private async void OnCustomerServiceTapped(object sender, EventArgs e)
@@ -45,11 +45,11 @@ public partial class HomePage : ContentPage
 
     private async void OnSearchTapped(object sender, EventArgs e)
     {
-     //   await Shell.Current.GoToAsync("//search");
+        //   await Shell.Current.GoToAsync("//search");
     }
 
     private async void OnCartTapped(object sender, EventArgs e)
     {
-      //  await Shell.Current.GoToAsync("//cart");
+        //  await Shell.Current.GoToAsync("//cart");
     }
 }

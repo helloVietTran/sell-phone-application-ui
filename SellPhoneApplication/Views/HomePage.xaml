@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SellPhoneApplication.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:shared="clr-namespace:SellPhoneApplication.Shared">
+    <Grid ColumnSpacing="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  HEADER  -->
+        <shared:HeaderView Grid.Row="0" />
+
+        <!--  Content  -->
+
+        <ScrollView Grid.Row="1">
+            <StackLayout>
+                <!--  Banner  -->
+                <Grid HeightRequest="400">
+                    <!--  Chiều cao cụ thể giúp kiểm soát layout  -->
+                    <Image Aspect="AspectFill" Source="banner.png" />
+                    <BoxView BackgroundColor="#60000000" />
+
+                    <StackLayout
+                        Padding="20"
+                        HorizontalOptions="Center"
+                        Spacing="10"
+                        VerticalOptions="Center">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="40"
+                            HorizontalOptions="Center"
+                            Text="Thế giới điện thoại mở ra trước mắt bạn"
+                            TextColor="White" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            HorizontalOptions="Center"
+                            Text="Mua điện thoại online, giao hàng tận nơi"
+                            TextColor="LightGray" />
+                        <Button
+                            Margin="0,16,0,0"
+                            BackgroundColor="#FF5722"
+                            Clicked="OnSenifoneTapped"
+                            CornerRadius="8"
+                            Text="Khám phá ngay"
+                            TextColor="White"
+                            WidthRequest="220" />
+                    </StackLayout>
+                </Grid>
+
+                <!--  Review  -->
+                <ScrollView Orientation="Horizontal">
+                    <StackLayout
+                        Padding="20,15"
+                        Orientation="Horizontal"
+                        Spacing="10">
+
+                        <Frame
+                            BackgroundColor="White"
+                            CornerRadius="10"
+                            HasShadow="True"
+                            WidthRequest="250">
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="2">
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource CustomGreen}"
+                                        HeightRequest="24"
+                                        WidthRequest="24">
+                                        <Image
+                                            HeightRequest="20"
+                                            Source="star_icon.png"
+                                            WidthRequest="20" />
+                                    </Frame>
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource CustomGreen}"
+                                        HeightRequest="24"
+                                        WidthRequest="24">
+                                        <Image
+                                            HeightRequest="20"
+                                            Source="star_icon.png"
+                                            WidthRequest="20" />
+                                    </Frame>
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource CustomGreen}"
+                                        HeightRequest="24"
+                                        WidthRequest="24">
+                                        <Image
+                                            HeightRequest="20"
+                                            Source="star_icon.png"
+                                            WidthRequest="20" />
+                                    </Frame>
+                                </StackLayout>
+                                <Label
+                                    Margin="0,2,0,0"
+                                    FontAttributes="Bold"
+                                    FontSize="14"
+                                    Text="Trần Minh Hải"
+                                    TextColor="Gray" />
+                                <Label
+                                    Margin="0,5,0,0"
+                                    FontSize="13"
+                                    MaxLines="3"
+                                    Text="Giao hàng nhanh chóng, sản phẩm như mô tả, rất hài lòng!"
+                                    TextColor="DarkGray" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame
+                            BackgroundColor="White"
+                            CornerRadius="10"
+                            HasShadow="True"
+                            WidthRequest="250">
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="2">
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource CustomGreen}"
+                                        HeightRequest="24"
+                                        WidthRequest="24">
+                                        <Image
+                                            HeightRequest="20"
+                                            Source="star_icon.png"
+                                            WidthRequest="20" />
+                                    </Frame>
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource CustomGreen}"
+                                        HeightRequest="24"
+                                        WidthRequest="24">
+                                        <Image
+                                            HeightRequest="20"
+                                            Source="star_icon.png"
+                                            WidthRequest="20" />
+                                    </Frame>
+                                </StackLayout>
+                                <Label
+                                    Margin="0,2,0,0"
+                                    FontAttributes="Bold"
+                                    FontSize="14"
+                                    Text="Nguyễn Thu Hương"
+                                    TextColor="Gray" />
+                                <Label
+                                    Margin="0,5,0,0"
+                                    FontSize="13"
+                                    MaxLines="3"
+                                    Text="Sản phẩm tốt, nhưng thời gian giao hàng hơi lâu hơn mong đợi."
+                                    TextColor="DarkGray" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame
+                            BackgroundColor="White"
+                            CornerRadius="10"
+                            HasShadow="True"
+                            WidthRequest="250">
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="2">
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource CustomGreen}"
+                                        HeightRequest="24"
+                                        WidthRequest="24">
+                                        <Image
+                                            HeightRequest="20"
+                                            Source="star_icon.png"
+                                            WidthRequest="20" />
+                                    </Frame>
+                                </StackLayout>
+                                <Label
+                                    FontAttributes="Bold"
+                                    FontSize="14"
+                                    Text="Lê Văn Nam"
+                                    TextColor="Gray" />
+                                <Label
+                                    Margin="0,5,0,0"
+                                    FontSize="13"
+                                    MaxLines="3"
+                                    Text="Chưa thực sự hài lòng, sản phẩm có một vài lỗi nhỏ."
+                                    TextColor="DarkGray" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame
+                            BackgroundColor="White"
+                            CornerRadius="10"
+                            HasShadow="True"
+                            WidthRequest="250">
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="2">
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource CustomGreen}"
+                                        HeightRequest="24"
+                                        WidthRequest="24">
+                                        <Image
+                                            HeightRequest="20"
+                                            Source="star_icon.png"
+                                            WidthRequest="20" />
+                                    </Frame>
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource CustomGreen}"
+                                        HeightRequest="24"
+                                        WidthRequest="24">
+                                        <Image
+                                            HeightRequest="20"
+                                            Source="star_icon.png"
+                                            WidthRequest="20" />
+                                    </Frame>
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource CustomGreen}"
+                                        HeightRequest="24"
+                                        WidthRequest="24">
+                                        <Image
+                                            HeightRequest="20"
+                                            Source="star_icon.png"
+                                            WidthRequest="20" />
+                                    </Frame>
+                                </StackLayout>
+                                <Label
+                                    Margin="0,2,0,0"
+                                    FontAttributes="Bold"
+                                    FontSize="14"
+                                    Text="Phạm Hoài An"
+                                    TextColor="Gray" />
+                                <Label
+                                    Margin="0,5,0,0"
+                                    FontSize="13"
+                                    MaxLines="3"
+                                    Text="Chất lượng sản phẩm tuyệt vời, tôi sẽ mua lần nữa!"
+                                    TextColor="DarkGray" />
+                            </StackLayout>
+                        </Frame>
+
+                        <Frame
+                            BackgroundColor="White"
+                            CornerRadius="10"
+                            HasShadow="True"
+                            WidthRequest="250">
+                            <StackLayout>
+                                <StackLayout Orientation="Horizontal" Spacing="2">
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource CustomGreen}"
+                                        HeightRequest="24"
+                                        WidthRequest="24">
+                                        <Image
+                                            HeightRequest="20"
+                                            Source="star_icon.png"
+                                            WidthRequest="20" />
+                                    </Frame>
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource CustomGreen}"
+                                        HeightRequest="24"
+                                        WidthRequest="24">
+                                        <Image
+                                            HeightRequest="20"
+                                            Source="star_icon.png"
+                                            WidthRequest="20" />
+                                    </Frame>
+                                    <Frame
+                                        Padding="0"
+                                        BackgroundColor="{DynamicResource CustomGreen}"
+                                        HeightRequest="24"
+                                        WidthRequest="24">
+                                        <Image
+                                            HeightRequest="20"
+                                            Source="star_icon.png"
+                                            WidthRequest="20" />
+                                    </Frame>
+                                </StackLayout>
+                                <Label
+                                    Margin="0,2,0,0"
+                                    FontAttributes="Bold"
+                                    FontSize="14"
+                                    Text="Trần Minh Hải"
+                                    TextColor="Gray" />
+                                <Label
+                                    Margin="0,5,0,0"
+                                    FontSize="13"
+                                    MaxLines="3"
+                                    Text="Giao hàng nhanh chóng, sản phẩm như mô tả, rất hài lòng!"
+                                    TextColor="DarkGray" />
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </ScrollView>
+
+                <!--  Quảng bá  -->
+                <Grid
+                    Padding="20,30"
+                    BackgroundColor="#F2F2F2"
+                    ColumnSpacing="20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+
+
+                    <!--  Hình ảnh điện thoại  -->
+                    <Image
+                        Grid.Column="0"
+                        Aspect="AspectFill"
+                        HorizontalOptions="Center"
+                        Source="mockup_phone.png"
+                        VerticalOptions="Center" />
+
+                    <!--  Nội dung bên phải  -->
+                    <StackLayout
+                        Grid.Column="1"
+                        Padding="30"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="24"
+                            Text="Dòng điện thoại Redmi mới"
+                            TextColor="#333333" />
+                        <Label
+                            Margin="0,10,0,20"
+                            FontSize="16"
+                            Text="Màn hình sắc nét, hiệu năng mạnh mẽ và giá cả hợp lý, mang đến trải nghiệm tuyệt vời cho người dùng"
+                            TextColor="#555555" />
+                        <Label
+                            FontSize="14"
+                            Text="Mới"
+                            TextColor="#777777" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="28"
+                            Text="Redmi note 13"
+                            TextColor="#222222" />
+
+                        <StackLayout
+                            Margin="0,5"
+                            Orientation="Horizontal"
+                            Spacing="10">
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="20"
+                                Text="7.990.000"
+                                TextColor="#D9480F" />
+                            <Label
+                                FontSize="20"
+                                Text="8.990.000"
+                                TextColor="#777777"
+                                TextDecorations="Strikethrough" />
+                        </StackLayout>
+
+                        <Button
+                            BackgroundColor="#FF5722"
+                            Clicked="OnSenifoneTapped"
+                            CornerRadius="8"
+                            FontSize="16"
+                            HeightRequest="48"
+                            Text="Xem ngay"
+                            TextColor="White"
+                            WidthRequest="180" />
+
+
+                    </StackLayout>
+                </Grid>
+
+                <Grid
+                    Padding="20"
+                    ColumnSpacing="20"
+                    RowSpacing="20">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--  Item 1  -->
+                    <VerticalStackLayout
+                        Grid.Column="0"
+                        HorizontalOptions="Center"
+                        Spacing="8">
+                        <Image
+                            HeightRequest="150"
+                            Source="get_started.png"
+                            WidthRequest="150" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            HorizontalTextAlignment="Center"
+                            Text="Dễ dàng mua sắm" />
+                        <Label
+                            FontSize="13"
+                            HorizontalTextAlignment="Center"
+                            Text="Hoàn tất quy trình mua sắm trong 2 bước"
+                            TextColor="Gray" />
+                    </VerticalStackLayout>
+
+                    <!--  Item 2  -->
+                    <VerticalStackLayout
+                        Grid.Column="1"
+                        HorizontalOptions="Center"
+                        Spacing="8">
+                        <Image
+                            HeightRequest="150"
+                            Source="easy_operation.png"
+                            WidthRequest="150" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            HorizontalTextAlignment="Center"
+                            Text="Sao lưu dữ liệu" />
+                        <Label
+                            FontSize="13"
+                            HorizontalTextAlignment="Center"
+                            Text="Hỗ trợ chuyển dữ liệu sang thiết bị mới"
+                            TextColor="Gray" />
+                    </VerticalStackLayout>
+
+                    <!--  Item 3  -->
+                    <VerticalStackLayout
+                        Grid.Column="2"
+                        HorizontalOptions="Center"
+                        Spacing="8">
+                        <Image
+                            HeightRequest="150"
+                            Source="safe_environment.png"
+                            WidthRequest="150" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            HorizontalTextAlignment="Center"
+                            Text="Bảo mật thông tin" />
+                        <Label
+                            FontSize="13"
+                            HorizontalTextAlignment="Center"
+                            Text="Thông tin khách hàng không được chia sẻ cho bên thứ ba"
+                            TextColor="Gray" />
+                    </VerticalStackLayout>
+
+                    <!--  Item 4  -->
+                    <VerticalStackLayout
+                        Grid.Column="3"
+                        HorizontalOptions="Center"
+                        Spacing="8">
+                        <Image
+                            HeightRequest="150"
+                            Source="we_help.png"
+                            WidthRequest="150" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="16"
+                            HorizontalTextAlignment="Center"
+                            Text="Hỗ trợ tận tâm" />
+                        <Label
+                            FontSize="13"
+                            HorizontalTextAlignment="Center"
+                            Text="Còn thắc mắc? Dịch vụ khách hàng luôn sẵn sàng!"
+                            TextColor="Gray" />
+                    </VerticalStackLayout>
+
+                </Grid>
+                <!--  Contact  -->
+                <Grid Margin="0,20,0,0" HeightRequest="400">
+
+                    <Image Aspect="AspectFill" Source="contact_banner.png" />
+                    <BoxView BackgroundColor="#60000000" />
+                    <StackLayout
+                        Padding="20"
+                        HorizontalOptions="Center"
+                        Spacing="10"
+                        VerticalOptions="CenterAndExpand">
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="40"
+                            HorizontalOptions="Center"
+                            Text="Bạn có thắc mắc?"
+                            TextColor="White" />
+                        <Label
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            HorizontalOptions="Center"
+                            Text="Chúng tôi rất vui lòng được giải đáp"
+                            TextColor="LightGray" />
+                        <Button
+                            Margin="0,16,0,0"
+                            BackgroundColor="#FF5722"
+                            CornerRadius="8"
+                            Text="Liên hệ với chúng tôi"
+                            TextColor="White"
+                            WidthRequest="180" />
+                    </StackLayout>
+                </Grid>
+
+                <!--  Footer  -->
+                <shared:FooterView />
+
+            </StackLayout>
+        </ScrollView>
+
+
+
+    </Grid>
+</ContentPage>

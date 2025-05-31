@@ -1,0 +1,344 @@
+<ContentPage
+    x:Class="SellPhoneApplication.Views.PhonesPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:shared="clr-namespace:SellPhoneApplication.Shared"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Name="PhonesPageView">
+
+    <Grid
+        Padding="10"
+        ColumnSpacing="10"
+        RowSpacing="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!--  Header  -->
+            <RowDefinition Height="*" />
+            <!--  Content  -->
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <!--  Sidebar  -->
+            <ColumnDefinition Width="*" />
+            <!--  Main Content  -->
+        </Grid.ColumnDefinitions>
+
+        <!--  HEADER  -->
+        <shared:HeaderView Grid.Row="0" Grid.ColumnSpan="2" />
+
+        <!--  SIDEBAR FILTER  -->
+        <ScrollView Grid.Row="1" Grid.Column="0">
+            <VerticalStackLayout Padding="10" Spacing="15">
+                <Grid
+                    Padding="10,0"
+                    ColumnDefinitions="*,Auto"
+                    RowDefinitions="Auto">
+
+                    <Label
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="22"
+                        HorizontalOptions="Start"
+                        Text="Bộ lọc"
+                        TextColor="#212121" />
+
+
+                    <Image
+                        Grid.Column="1"
+                        HeightRequest="20"
+                        HorizontalOptions="End"
+                        Source="filter.png" />
+                </Grid>
+                <BoxView
+                    Margin="0,5"
+                    BackgroundColor="#D3D3D3"
+                    HeightRequest="1" />
+
+
+                <!--  Giá  -->
+
+                <VerticalStackLayout Padding="10,0" Spacing="6">
+                    <Label FontSize="14" Text="0đ - 30.000.000đ" />
+                    <Slider
+                        Maximum="30000000"
+                        Minimum="0"
+                        Value="{Binding MaxPrice}" />
+
+
+                </VerticalStackLayout>
+
+                <BoxView
+                    Margin="0,5"
+                    BackgroundColor="#D3D3D3"
+                    HeightRequest="1" />
+
+                <HorizontalStackLayout Padding="10,0" Spacing="8">
+                    <BoxView
+                        BackgroundColor="Black"
+                        CornerRadius="12"
+                        HeightRequest="24"
+                        WidthRequest="24">
+                        <BoxView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetColorCommand}" CommandParameter="BLACK" />
+                        </BoxView.GestureRecognizers>
+                    </BoxView>
+                    <BoxView
+                        BackgroundColor="Red"
+                        CornerRadius="12"
+                        HeightRequest="24"
+                        WidthRequest="24">
+                        <BoxView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetColorCommand}" CommandParameter="RED" />
+                        </BoxView.GestureRecognizers>
+                    </BoxView>
+
+                    <BoxView
+                        BackgroundColor="Blue"
+                        CornerRadius="12"
+                        HeightRequest="24"
+                        WidthRequest="24">
+                        <BoxView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetColorCommand}" CommandParameter="BLUE" />
+                        </BoxView.GestureRecognizers>
+                    </BoxView>
+                    <BoxView
+                        BackgroundColor="Pink"
+                        CornerRadius="12"
+                        HeightRequest="24"
+                        WidthRequest="24">
+                        <BoxView.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetColorCommand}" CommandParameter="PINK" />
+                        </BoxView.GestureRecognizers>
+                    </BoxView>
+
+                </HorizontalStackLayout>
+
+
+                <BoxView
+                    Margin="0,5"
+                    BackgroundColor="#D3D3D3"
+                    HeightRequest="1" />
+
+                <!--  Bộ nhớ  -->
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="14"
+                    Text="Bộ nhớ" />
+                <VerticalStackLayout Padding="10,0" Spacing="0">
+                    <HorizontalStackLayout Spacing="6">
+                        <CheckBox
+                            CheckedChanged="MemoryCheckBox_CheckedChanged"
+                            ClassId="64"
+                            IsChecked="{Binding SelectedMemories, Converter={StaticResource MemoryContainsConverter}, ConverterParameter='64'}" />
+                        <Label
+                            FontSize="14"
+                            Text="64 GB"
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6">
+                        <CheckBox
+                            CheckedChanged="MemoryCheckBox_CheckedChanged"
+                            ClassId="128"
+                            IsChecked="{Binding SelectedMemories, Converter={StaticResource MemoryContainsConverter}, ConverterParameter='128'}" />
+
+                        <Label
+                            FontSize="14"
+                            Text="128 GB"
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6">
+                        <CheckBox
+                            CheckedChanged="MemoryCheckBox_CheckedChanged"
+                            ClassId="256"
+                            IsChecked="{Binding SelectedMemories, Converter={StaticResource MemoryContainsConverter}, ConverterParameter='256'}" />
+                        <Label
+                            FontSize="14"
+                            Text="256 GB"
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+
+                <BoxView
+                    Margin="0,5"
+                    BackgroundColor="#D3D3D3"
+                    HeightRequest="1" />
+
+                <!--  Thương hiệu  -->
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="14"
+                    Text="Thương hiệu" />
+                <VerticalStackLayout Padding="10,0" Spacing="0">
+                    <HorizontalStackLayout Spacing="6">
+                        <CheckBox
+                            CheckedChanged="BrandCheckBox_CheckedChanged"
+                            ClassId="APPLE"
+                            IsChecked="{Binding SelectedBrands, Converter={StaticResource MemoryContainsConverter}, ConverterParameter='APPLE'}" />
+
+                        <Label
+                            FontSize="14"
+                            Text="Apple"
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6">
+                        <CheckBox
+                            CheckedChanged="BrandCheckBox_CheckedChanged"
+                            ClassId="SAMSUNG"
+                            IsChecked="{Binding SelectedBrands, Converter={StaticResource MemoryContainsConverter}, ConverterParameter='SAMSUNG'}" />
+                        <Label
+                            FontSize="14"
+                            Text="Samsung"
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6">
+                        <CheckBox
+                            CheckedChanged="BrandCheckBox_CheckedChanged"
+                            ClassId="XIAOMI"
+                            IsChecked="{Binding SelectedBrands, Converter={StaticResource MemoryContainsConverter}, ConverterParameter='XIAOMI'}" />
+                        <Label
+                            FontSize="14"
+                            Text="Xiaomi"
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="6">
+                        <CheckBox
+                            CheckedChanged="BrandCheckBox_CheckedChanged"
+                            ClassId="HUAWEI"
+                            IsChecked="{Binding SelectedBrands, Converter={StaticResource MemoryContainsConverter}, ConverterParameter='HUAWEI'}" />
+                        <Label
+                            FontSize="14"
+                            Text="Huawei"
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+                <Button
+                    BackgroundColor="#000"
+                    Command="{Binding ApplyFilterCommand}"
+                    Text="Áp dụng bộ lọc"
+                    TextColor="White" />
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <!--  PRODUCT GRID  -->
+        <ScrollView Grid.Row="1" Grid.Column="1">
+            <VerticalStackLayout Spacing="10">
+                <Grid
+                    Padding="0,10,15,10"
+                    ColumnDefinitions="*,Auto"
+                    RowDefinitions="Auto">
+
+                    <Label
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="22"
+                        HorizontalOptions="Start"
+                        Text="Danh mục điện thoại"
+                        TextColor="#212121" />
+
+                    <Picker
+                        Grid.Column="1"
+                        HorizontalOptions="End"
+                        VerticalOptions="Center"
+                        WidthRequest="140">
+                        <Picker.Items>
+                            <x:String>Phổ biến</x:String>
+                            <x:String>Giá: Thấp → Cao</x:String>
+                            <x:String>Giá: Cao → Thấp</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Grid>
+
+
+                <Label
+                    FontSize="14"
+                    Text="{Binding ErrorMessage}"
+                    TextColor="Red" />
+                <CollectionView ItemsSource="{Binding Phones}" SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout
+                            HorizontalItemSpacing="10"
+                            Orientation="Vertical"
+                            Span="3"
+                            VerticalItemSpacing="20" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame
+                                Margin="6"
+                                Padding="12"
+                                BackgroundColor="White"
+                                BorderColor="#F1F1F1"
+                                CornerRadius="6"
+                                HasShadow="False"
+                                HeightRequest="400">
+                                <VerticalStackLayout Spacing="6">
+
+                                    <!--  1. Ảnh điện thoại  -->
+                                    <Image
+                                        Aspect="AspectFill"
+                                        HeightRequest="244"
+                                        Source="{Binding ImageUrl}">
+                                        <Image.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnPhoneTapped" />
+                                        </Image.GestureRecognizers>
+                                    </Image>
+
+                                    <!--  2. Tên điện thoại  -->
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="16"
+                                        LineBreakMode="TailTruncation"
+                                        Text="{Binding Name}"
+                                        TextColor="#444444">
+                                        <Label.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="OnPhoneTapped" />
+                                        </Label.GestureRecognizers>
+                                    </Label>
+
+                                    <!--  3. Giá  -->
+                                    <Label
+                                        FontAttributes="Bold"
+                                        FontSize="14"
+                                        Text="{Binding Price, StringFormat='Giá: {0:N0} đ'}"
+                                        TextColor="#D70020" />
+
+                                    <HorizontalStackLayout Spacing="5">
+                                        <Image
+                                            HeightRequest="16"
+                                            Source="heart.png"
+                                            WidthRequest="16" />
+                                        <Label
+                                            FontSize="14"
+                                            Text="Yêu thích"
+                                            TextColor="Red">
+                                            <Label.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding BindingContext.ToggleFavoriteCommand, Source={x:Reference Name=PhonesPageView}}" CommandParameter="{Binding .}" />
+                                            </Label.GestureRecognizers>
+                                        </Label>
+                                    </HorizontalStackLayout>
+
+                                    <Button
+                                        BackgroundColor="#000"
+                                        Command="{Binding BindingContext.AddToCartCommand, Source={x:Reference Name=PhonesPageView}}"
+                                        CommandParameter="{Binding .}"
+                                        Text="Thêm vào giỏ hàng"
+                                        TextColor="White" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

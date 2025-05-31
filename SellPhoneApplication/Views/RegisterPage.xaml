@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="SellPhoneApplication.Views.RegisterPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    BackgroundColor="White">
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="20"
+            HorizontalOptions="Center"
+            Spacing="20"
+            VerticalOptions="Center">
+
+            <VerticalStackLayout Spacing="15" WidthRequest="400">
+
+                <Image
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    Source="senifone.png"
+                    WidthRequest="150" />
+
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="24"
+                    HorizontalOptions="Start"
+                    Text="Đăng ký" />
+
+                <!--  Full Name Field  -->
+                <Label
+                    FontSize="16"
+                    HorizontalOptions="Start"
+                    Text="Họ và tên" />
+                <Entry
+                    Keyboard="Text"
+                    Placeholder="Nhập họ và tên"
+                    Text="{Binding FullName}" />
+
+                <!--  Email Field  -->
+                <Label
+                    FontSize="16"
+                    HorizontalOptions="Start"
+                    Text="Email" />
+                <Entry
+                    Keyboard="Email"
+                    Placeholder="Nhập email"
+                    Text="{Binding Email}" />
+
+                <!--  Password Field  -->
+                <Label
+                    FontSize="16"
+                    HorizontalOptions="Start"
+                    Text="Mật khẩu" />
+                <Entry
+                    Keyboard="Text"
+                    Placeholder="Nhập mật khẩu"
+                    Text="{Binding Password}" />
+
+                <!--  Confirm Password Field  -->
+                <Label
+                    FontSize="16"
+                    HorizontalOptions="Start"
+                    Text="Xác nhận mật khẩu" />
+                <Entry
+                    Keyboard="Text"
+                    Placeholder="Xác nhận mật khẩu"
+                    Text="{Binding ConfirmPassword}" />
+
+                <!--  Register Button  -->
+                <AbsoluteLayout HeightRequest="80">
+                    <!--  General Error Label  -->
+                    <Label
+                        AbsoluteLayout.LayoutBounds="0,0,1,20"
+                        AbsoluteLayout.LayoutFlags="WidthProportional"
+                        FontSize="12"
+                        HorizontalOptions="Center"
+                        IsVisible="{Binding GeneralError, Converter={StaticResource StringNotNullOrEmptyConverter}}"
+                        Text="{Binding GeneralError}"
+                        TextColor="OrangeRed" />
+
+                    <!--  Register Button  -->
+                    <Button
+                        AbsoluteLayout.LayoutBounds="0,25,1,44"
+                        AbsoluteLayout.LayoutFlags="WidthProportional"
+                        Command="{Binding RegisterCommand}"
+                        CornerRadius="8"
+                        HeightRequest="44"
+                        Text="Đăng ký"
+                        TextColor="White" />
+                </AbsoluteLayout>
+
+                <HorizontalStackLayout HorizontalOptions="End" Spacing="5">
+                    <Label FontSize="14" Text="Đã có tài khoản?" />
+                    <Label
+                        FontSize="12"
+                        Text="Đăng nhập ngay"
+                        TextColor="{DynamicResource CustomBlue}"
+                        TextDecorations="None">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnLoginTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
