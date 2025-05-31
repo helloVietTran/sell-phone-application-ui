@@ -25,7 +25,7 @@ namespace SellPhoneApplication
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<IProductService, ProductService>();
             builder.Services.AddSingleton<IOrderService, OrderService>();
-            builder.Services.AddSingleton<IFavoriteService, FavoriteService>();
+            builder.Services.AddSingleton<IFavouriteService, FavouriteService>();
 
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<RegisterViewModel>();

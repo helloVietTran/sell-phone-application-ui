@@ -1,4 +1,4 @@
-using SellPhoneApplication.Models;
+﻿using SellPhoneApplication.Models;
 
 namespace SellPhoneApplication.Views;
 
@@ -42,4 +42,30 @@ public partial class PhonesPage : ContentPage
             await Shell.Current.GoToAsync($"///PhoneDetailPage?productId={tappedPhone.Id}");
         }
     }
+
+    private void OnSortPickerChanged(object sender, EventArgs e)
+    {
+        var picker = sender as Picker;
+        if (picker.SelectedItem is string selected)
+        {
+            if (BindingContext is PhonesViewModel vm)
+            {
+                switch (selected)
+                {
+                    case "Giá: Thấp → Cao":
+                        vm.SortByPrice = "asc";
+                        break;
+                    case "Giá: Cao → Thấp":
+                        vm.SortByPrice = "dsc";
+                        break;
+                    default:
+                        vm.SortByPrice = null;
+                        break;
+                }
+
+                vm.ApplyFilterCommand.Execute(null); 
+            }
+        }
+    }
+
 }

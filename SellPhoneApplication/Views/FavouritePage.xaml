@@ -29,37 +29,33 @@
 
         <!--  Content  -->
         <ScrollView Grid.Row="1" Grid.Column="0">
-            <VerticalStackLayout Padding="20" Spacing="10">
+            <VerticalStackLayout Padding="40,20" Spacing="10">
 
                 <!--  Section title  -->
-                <Grid ColumnDefinitions="*,Auto">
-                    <Label
-                        Grid.Column="0"
-                        FontAttributes="Bold"
-                        FontSize="22"
-                        Text="Danh sách yêu thích"
-                        TextColor="#212121" />
-                </Grid>
-
+                <Label
+                    FontAttributes="Bold"
+                    FontSize="24"
+                    Text="Danh sách yêu thích"
+                    TextColor="#212121" />
                 <!--  List of favorite phones  -->
                 <CollectionView ItemsSource="{Binding FavouritePhones}" SelectionMode="None">
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout
                             HorizontalItemSpacing="10"
                             Orientation="Vertical"
-                            Span="3"
+                            Span="4"
                             VerticalItemSpacing="20" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate x:DataType="model:Phone">
+                        <DataTemplate x:DataType="model:FavoriteProduct">
                             <Frame
                                 Margin="6"
                                 Padding="12"
                                 BackgroundColor="White"
-                                BorderColor="#F1F1F1"
+                                BorderColor="#E0E0E0"
                                 CornerRadius="6"
-                                HasShadow="False"
-                                HeightRequest="400">
+                                HasShadow="True"
+                                HeightRequest="430">
 
                                 <VerticalStackLayout Spacing="6">
 
@@ -67,23 +63,21 @@
                                     <Image
                                         Aspect="AspectFill"
                                         HeightRequest="244"
-                                        Source="{Binding ImageUrl}">
-                                        <Image.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference FavouritePage}, Path=BindingContext.PhoneSelectedCommand}" CommandParameter="{Binding .}" />
-                                        </Image.GestureRecognizers>
-                                    </Image>
+                                        Source="{Binding ImageUrl}" />
 
                                     <!--  Tên điện thoại  -->
                                     <Label
                                         FontAttributes="Bold"
                                         FontSize="16"
                                         LineBreakMode="TailTruncation"
-                                        Text="{Binding Name}"
-                                        TextColor="#444444">
-                                        <Label.GestureRecognizers>
-                                            <TapGestureRecognizer Command="{Binding Source={x:Reference FavouritePage}, Path=BindingContext.PhoneSelectedCommand}" CommandParameter="{Binding .}" />
-                                        </Label.GestureRecognizers>
-                                    </Label>
+                                        Text="{Binding ProductName}"
+                                        TextColor="#444444" />
+
+                                    <Label
+                                        FontSize="14"
+                                        LineBreakMode="TailTruncation"
+                                        Text="{Binding ProductDescription}"
+                                        TextColor="Gray" />
 
                                     <!--  Giá  -->
                                     <Label
@@ -103,7 +97,7 @@
                                             Text="Bỏ thích"
                                             TextColor="Red">
                                             <Label.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={x:Reference FavouritePageView}, Path=BindingContext.UnfavoriteCommand}" CommandParameter="{Binding .}" />
+                                                <TapGestureRecognizer Command="{Binding BindingContext.UnfavouriteCommand, Source={x:Reference FavouritePageView}}" CommandParameter="{Binding .}" />
                                             </Label.GestureRecognizers>
                                         </Label>
                                     </HorizontalStackLayout>

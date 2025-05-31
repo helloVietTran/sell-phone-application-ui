@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace SellPhoneApplication.Shared;
 
 public partial class HeaderView : ContentView
@@ -21,10 +23,20 @@ public partial class HeaderView : ContentView
         Shell.Current.GoToAsync("//PhonesPage");
     }
 
-    private void OnFavouriteTapped(object sender, EventArgs e)
+    private async void OnFavouriteTapped(object sender, EventArgs e)
     {
-        Shell.Current.GoToAsync("//FavouritePage");
+        Debug.WriteLine("Navigating to FavouritePage...");
+        try
+        {
+            await Shell.Current.GoToAsync("//FavouritePage");
+            Debug.WriteLine("Navigation succeeded.");
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Navigation failed: {ex.Message}");
+        }
     }
+
 
     private void OnManagementTapped(object sender, EventArgs e)
     {
@@ -43,6 +55,7 @@ public partial class HeaderView : ContentView
 
     private void OnCartTapped(object sender, EventArgs e)
     {
+       
         Shell.Current.GoToAsync("//CartPage");
     }
 }

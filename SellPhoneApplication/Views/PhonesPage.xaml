@@ -248,6 +248,7 @@
                         Grid.Column="1"
                         HorizontalOptions="End"
                         VerticalOptions="Center"
+                        SelectedIndexChanged="OnSortPickerChanged"
                         WidthRequest="140">
                         <Picker.Items>
                             <x:String>Phổ biến</x:String>

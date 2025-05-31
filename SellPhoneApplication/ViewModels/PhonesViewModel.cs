@@ -11,7 +11,7 @@ public partial class PhonesViewModel : ObservableObject
 {
     private readonly ICartService _cartService;
     private readonly IProductService _productService;
-    private readonly IFavoriteService _favoriteService;
+    private readonly IFavouriteService _favouriteService;
 
     [ObservableProperty]
     double maxPrice = 25000000;
@@ -31,11 +31,14 @@ public partial class PhonesViewModel : ObservableObject
     [ObservableProperty]
     string errorMessage;
 
-    public PhonesViewModel(ICartService cartService, IProductService productService, IFavoriteService favoriteService)
+    [ObservableProperty]
+    string sortByPrice;
+
+    public PhonesViewModel(ICartService cartService, IProductService productService, IFavouriteService favouriteService)
     {
         _cartService = cartService;
         _productService = productService;
-        _favoriteService = favoriteService;
+        _favouriteService = favouriteService;
 
         SelectedMemories = new ObservableCollection<string>();
         SelectedBrands = new ObservableCollection<string>();
@@ -47,7 +50,7 @@ public partial class PhonesViewModel : ObservableObject
     {
         try
         {
-            var result = await _productService.FilterPhonesAsync(MaxPrice, SelectedBrands, SelectedMemories, Color);
+            var result = await _productService.FilterPhonesAsync(MaxPrice, SelectedBrands, SelectedMemories, Color, SortByPrice);
 
             if (result != null)
             {
@@ -129,7 +132,7 @@ public partial class PhonesViewModel : ObservableObject
 
         try
         {
-            await _favoriteService.AddToFavoritesAsync(phone.Id);
+            await _favouriteService.AddToFavoritesAsync(phone.Id);
             Debug.WriteLine($"Đã thêm sản phẩm {phone.Id} vào danh sách yêu thích");
         }
         catch (Exception ex)
