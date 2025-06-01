@@ -68,19 +68,19 @@
                 Grid.Column="1"
                 FontSize="12"
                 HorizontalTextAlignment="Center"
-                Text="email"
+                Text="Email người đặt đơn"
                 TextColor="Gray" />
             <Label
                 Grid.Column="2"
                 FontSize="12"
                 HorizontalTextAlignment="Center"
-                Text="Trạng thái đơn hàng"
+                Text="Trạng thái đơn hàng hiện tại"
                 TextColor="Gray" />
             <Label
                 Grid.Column="3"
                 FontSize="12"
                 HorizontalTextAlignment="Center"
-                Text="Ngày đặt đơn"
+                Text="Ngày người dùng đặt đơn"
                 TextColor="Gray" />
             <Label
                 Grid.Column="4"
@@ -106,7 +106,7 @@
                         <Frame
                             Margin="0,0,0,10"
                             Padding="8,16"
-                            BackgroundColor="White"
+                            BackgroundColor="#E0E0E0"
                             BorderColor="White"
                             CornerRadius="8"
                             HasShadow="False">

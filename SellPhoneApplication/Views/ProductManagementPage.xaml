@@ -5,8 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:models="clr-namespace:SellPhoneApplication.Models"
     xmlns:shared="clr-namespace:SellPhoneApplication.Shared"
-    x:Name="ProductManagementPageView"
-    BackgroundColor="#F8F8F8">
+   
+    BackgroundColor="#F0F0F0">
 
     <Grid RowSpacing="0">
         <Grid.RowDefinitions>
@@ -109,7 +109,7 @@
                         <Frame
                             Margin="0,0,0,10"
                             Padding="8,16"
-                            BackgroundColor="White"
+                            BackgroundColor="#E0E0E0"
                             BorderColor="White"
                             CornerRadius="8"
                             HasShadow="False">

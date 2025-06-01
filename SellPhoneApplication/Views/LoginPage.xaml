@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:SellPhoneApplication.Converters"
-    BackgroundColor="White">
+    BackgroundColor="#F8F8F8">
 
     <ContentPage.Resources>
         <converters:StringNotNullOrEmptyConverter x:Key="StringNotNullOrEmptyConverter" />
@@ -16,7 +16,7 @@
         Spacing="20"
         VerticalOptions="Center">
 
-        <VerticalStackLayout Spacing="15" WidthRequest="400">
+        <VerticalStackLayout Spacing="20" WidthRequest="400">
 
             <Image
                 HeightRequest="40"
@@ -25,13 +25,15 @@
                 WidthRequest="150" />
 
             <Label
+                Margin="0,10,0,10"
                 FontAttributes="Bold"
-                FontSize="24"
+                FontSize="26"
                 HorizontalOptions="Start"
-                Text="Log in" />
+                Text="Đăng nhập"
+                TextColor="{DynamicResource CustomBlack}" />
 
             <Label
-                FontSize="16"
+                FontSize="18"
                 HorizontalOptions="Start"
                 Text="Email" />
             <Entry
@@ -40,7 +42,7 @@
                 Placeholder="Enter your email"
                 Text="{Binding Email}" />
             <Label
-                FontSize="16"
+                FontSize="18"
                 HorizontalOptions="Start"
                 Text="Mật khẩu" />
             <Entry
@@ -55,7 +57,7 @@
                 <Label
                     AbsoluteLayout.LayoutBounds="0,0,1,20"
                     AbsoluteLayout.LayoutFlags="WidthProportional"
-                    FontSize="12"
+                    FontSize="14"
                     HorizontalOptions="Center"
                     IsVisible="{Binding GeneralError, Converter={StaticResource StringNotNullOrEmptyConverter}}"
                     Text="{Binding GeneralError}"
@@ -72,11 +74,11 @@
                     TextColor="White" />
 
             </AbsoluteLayout>
-            <HorizontalStackLayout HorizontalOptions="End" Spacing="5">
-                <Label FontSize="14" Text="Chưa có tài khoản?" />
+            <HorizontalStackLayout HorizontalOptions="End" Spacing="8">
+                <Label FontSize="16" Text="Chưa có tài khoản?" />
                 <Label
                     x:Name="RegisterLabel"
-                    FontSize="12"
+                    FontSize="16"
                     Text="Đăng ký ngay"
                     TextColor="{DynamicResource CustomBlue}"
                     TextDecorations="None">
