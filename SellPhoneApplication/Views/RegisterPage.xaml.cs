@@ -9,6 +9,11 @@ public partial class RegisterPage : ContentPage
     }
 
 
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+        Shell.SetFlyoutBehavior(this, FlyoutBehavior.Disabled);
+    }
     private async void OnLoginTapped(object sender, EventArgs e)
     {
         await Shell.Current.GoToAsync("//LoginPage");

@@ -19,7 +19,7 @@
                 <Label
                     FontAttributes="Bold"
                     FontSize="20"
-                    Text="Tạo sản phẩm mới"
+                    Text="Thêm mới sản phẩm"
                     TextColor="#212121" />
 
                 <!--  Name  -->
@@ -77,9 +77,8 @@
                 <Button
                     BackgroundColor="Black"
                     Clicked="OnSubmitClicked"
-                    Text="Tạo sản phẩm"
+                    Text="Tạo"
                     TextColor="White" />
-
             </VerticalStackLayout>
         </Frame>
     </ScrollView>

@@ -9,6 +9,7 @@
     <Color x:Key="EntryBackgroundColor">#eef2f7</Color>
     <Color x:Key="NavigationTextColor">#3C4043</Color>
     <Color x:Key="CustomGreen">#00B67A</Color>
+    <Color x:Key="CustomBlack">#212121</Color>
     
     <Style TargetType="ActivityIndicator">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
